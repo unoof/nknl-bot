@@ -44,6 +44,102 @@ async def ptj(ctx):
 async def speczy(ctx):
     await ctx.send("<a:gigachad:1241292798595170346>")
 
+@client.command()
+async def penis(ctx):
+    await ctx.send("https://tenor.com/view/penis-haha-gif-18597041")
+
+
+async def open_warn(user):
+    users = await get_warns()
+
+    if str(user.id) in users:
+        return False
+    else:
+        users[str(user.id)] = {}
+        users[str(user.id)]["warns"] = 0
+    
+    with open("warning.json",'w') as f:                                        #json file for database
+        json.dump(users, f)
+    return True
+
+async def get_warns():
+    with open("warning.json",'r') as f:
+        users = json.load(f)
+    return users
+
+async def update_warns(user, change = 0, mode = "warns"):
+    users = await get_warns()
+
+    users[str(user.id)][mode] += change
+
+    with open("warning.json", 'w') as f:
+        json.dump(users,f)
+
+    warns = users[str(user.id)]["warns"]
+    return warns
+
+@client.command()                                                           #make and check bank account
+async def warning(ctx, mention: discord.Member = None):
+    if mention != None:
+        await open_warn(mention)
+
+        users = await get_warns()
+
+        wallet_amt = users[str(mention.id)]["warns"]
+
+        if wallet_amt == 0:
+            await ctx.send(f"{mention} have no warn yet, you should get some for fun bro.")
+        else:
+            em = discord.Embed(title = f"{mention}'s total warns:", color = discord.Color.red())
+            em.add_field(name= "Warns", value = wallet_amt)
+            await ctx.send(embed = em)
+    else:
+        await open_warn(ctx.author)
+
+        user = ctx.author
+
+        users = await get_warns()
+
+        wallet_amt = users[str(user.id)]["warns"]
+    
+        if wallet_amt == 0:
+            await ctx.send(f"{user.name} have no warn yet, you should get some for fun bro.")
+        else:
+            em = discord.Embed(title = f"{ctx.author.name}'s total warns:", color = discord.Color.red())
+            em.add_field(name= "Warns", value = wallet_amt)
+            await ctx.send(embed = em)
+
+@client.command()
+@commands.has_role('King')
+async def warn(ctx, mention: discord.Member,*, reason):
+    await open_warn(mention)
+    
+    warns = await update_warns(mention)
+
+    users = await get_warns()
+    
+    users[str(mention.id)]["warns"] += 1
+    with open("warning.json",'w') as f:
+        json.dump(users,f)
+        
+    await ctx.send(f"{mention} had been warn with reason: {reason}")
+    await mention.send(f"You had been warn with reason: {reason}, now you have {warns +1} warns")
+
+@client.command()
+@commands.has_role('King')
+async def remove(ctx, mention: discord.Member, x= 1):
+    await open_warn(mention)
+
+    users = await get_warns()
+    
+    users[str(mention.id)]["warns"] -= x
+    with open("warning.json",'w') as f:
+        json.dump(users,f)
+        
+    await ctx.send(f"Successful remove {mention} {x} warn.")
+
+
+
 async def open_account(user):                                               #bank system
     users = await get_bank_data()
 
@@ -1269,12 +1365,12 @@ async def get_help(ctx):
         em.add_field(name= "ptj", value="No CD", inline= False)
         em.add_field(name= "oof", value="No CD", inline= False)
         em.add_field(name= "speczy", value="No CD", inline= False)
+        em.add_field(name= "penis",  value="No CD", inline= False)
         em.add_field(name= "balance", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
         em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
         em.add_field(name= "work", value="10 mins cooldown", inline= False)
         em.add_field(name= "beg", value="15 secs cooldown", inline= False)
         em.add_field(name= "search", value="15 secs cooldown", inline= False)
-        em.add_field(name= "toss + (kr you want to bet)", value="chance to x2 the bet", inline= False)
 
         view = View()
         view.add_item(button_next1)
@@ -1284,12 +1380,15 @@ async def get_help(ctx):
 
     async def button_callback(interaction):
         em = discord.Embed(title = f"All command:", color = discord.Color.red())
+        em.add_field(name= "toss + (kr you want to bet)", value="chance to x2 the bet", inline= False)
         em.add_field(name= "dice + (kr you want to bet)", value="Chance to x9 the bet", inline= False)
         em.add_field(name= "spin", value="500 KR per spin", inline= False)
         em.add_field(name= "use", value= "use a Nitro Basic ticket", inline= False)
-        em.add_field(name= "add", value= "@user/userid + ``amount of kr`` to add some kr to other balance, only high mod can use this", inline= False)
+        em.add_field(name= "add", value= "@user/userid + ``amount of kr`` to add some kr to other balance  (only high mod can use this)", inline= False)
         em.add_field(name= "lb", value= "to get the top 10 people with most KR", inline= False)
-
+        em.add_field(name= "warning", value= "Leave blank to check your self or @user/user_id to get someone else warning", inline= False)
+        em.add_field(name= "warn + @user/userid + reason", value= "Use to warn people  (only high mod can use this)", inline= False)
+        em.add_field(name= "remove + @user/userid + number", value= "Remove somebody warn, leave space to remove 1  (only high mod can use this)", inline= False)
         view = View()
         view.add_item(button_previous1)
         await interaction.response.edit_message(embed = em, view = view)
@@ -1301,12 +1400,12 @@ async def get_help(ctx):
         em.add_field(name= "ptj", value="No CD", inline= False)
         em.add_field(name= "oof", value="No CD", inline= False)
         em.add_field(name= "speczy", value="No CD", inline= False)
+        em.add_field(name= "penis",  value="No CD", inline= False)
         em.add_field(name= "balance", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
         em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
         em.add_field(name= "work", value="10 mins cooldown", inline= False)
         em.add_field(name= "beg", value="15 secs cooldown", inline= False)
         em.add_field(name= "search", value="15 secs cooldown", inline= False)
-        em.add_field(name= "toss + (kr you want to bet)", value="chance to x2 the bet", inline= False)
 
         view = View()
         view.add_item(button_next1)
