@@ -131,12 +131,30 @@ async def remove(ctx, mention: discord.Member, x= 1):
     await open_warn(mention)
 
     users = await get_warns()
-    
-    users[str(mention.id)]["warns"] -= x
+
+    number_of_warn = await update_warns(mention)
+
+    if x > number_of_warn:
+        await ctx.send(f"{mention} doesn't have that much warns to remove.")
+    else:
+        users[str(mention.id)]["warns"] -= x
+        with open("warning.json",'w') as f:
+            json.dump(users,f)
+        
+        await ctx.send(f"Successful remove {mention} {x} warn.")
+
+@client.command()
+@commands.has_role('King')
+async def remove_all(ctx, mention: discord.Member):
+    await open_warn(mention)
+
+    users = await get_warns()
+
+    users[str(mention.id)]["warns"] = 0
     with open("warning.json",'w') as f:
         json.dump(users,f)
         
-    await ctx.send(f"Successful remove {mention} {x} warn.")
+    await ctx.send(f"Successful remove all {mention} warns.")
 
 
 
@@ -1073,193 +1091,431 @@ async def dice(ctx, bet: int):
 
 @client.command()                                                           #spin systems
 @commands.cooldown(1, 3, commands.BucketType.user)
-async def spin(ctx):
+async def spin(ctx, x= 1):
     await open_account(ctx.author)
     
     await open_inv(ctx.author)
 
     bal = await update_bank(ctx.author)
-    
-    if 500 > bal:
-        await ctx.send("You don't have enough KR !!")
-    else:
-        member = await get_inv_data()
 
-        users = await get_bank_data()
-
-        user = ctx.author
-        
-        users[str(user.id)]["KR"] += -500
-        with open("bank.json",'w') as f:
-            json.dump(users,f)
-
-        i = random.randint(1, 10000)
-        if i == 1:
-            await ctx.send("<a:spin:1243478409930080342> Congratulation, you won the jackpot prize: a basic nitro ticket")
-
-            member[str(user.id)]["Nitro Basic ticket"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
-        elif 2 <= i <= 10:
-            await open_inv(ctx.author)
+    if x == 1:
+        if 500 > bal:
+            await ctx.send("You don't have enough KR !!")
+        else:
             member = await get_inv_data()
 
-            await collected_unob(ctx.author)
-            add_item = await get_unob_data()
+            users = await get_bank_data()
 
             user = ctx.author
+        
+            users[str(user.id)]["KR"] += -500
+            with open("bank.json",'w') as f:
+                json.dump(users,f)
+
+            i = random.randint(1, 10000)
+            if i == 1:
+                await ctx.send("<a:spin:1243478409930080342> Congratulation, you won the jackpot prize: a basic nitro ticket")
+
+                member[str(user.id)]["Nitro Basic ticket"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+                    
+            elif 2 <= i <= 10:
+                await open_inv(ctx.author)
+                member = await get_inv_data()
+
+                await collected_unob(ctx.author)
+                add_item = await get_unob_data()
+
+                user = ctx.author
     
-            unobtainable_item = [" Frostbite", " Fagdfaust IV", " Coroller", " Vertigo", " RGB", " Disintegrator", " Anti-matter", " Exotic", " Scouts Honor", " Moonfeather", " Ghostie", " Eternal Frost", " Keeper Of The Deep", " Flying Dutchman", " Assault Drone", " Deep Space", " Mysterious Orb", " Bruisegg", " ZENITH", " Esper", " Forbidden Tome", " ESPER", " Attack Drone", " DOS Armour", " DOS", " DOS Walker", " DOS Belt", " Devourer Of Souls"]
-            choice_item = random.choice(unobtainable_item)
-            await ctx.send("<a:spin:1243478409930080342> Congrats you hit the bingo, you spun out:" + choice_item)
+                unobtainable_item = ["Frostbite", "Fagdfaust IV", "Coroller", "Vertigo", "RGB", "Disintegrator", "Anti-matter", "Exotic", "Scouts Honor", "Moonfeather", "Ghostie", "Eternal Frost", "Keeper Of The Deep", "Flying Dutchman", "Assault Drone", "Deep Space", "Mysterious Orb", "Bruisegg", "ZENITH", "Esper", "Forbidden Tome", "ESPER", "Attack Drone", "DOS Armour", "DOS", "DOS Walker", "DOS Belt", "Devourer Of Souls"]
+                choice_item = random.choice(unobtainable_item)
+                await ctx.send(f"<a:spin:1243478409930080342> Congrats you hit the bingo, you spun out: {choice_item}")
 
-            member[str(user.id)]["Unobtainable"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
+                member[str(user.id)]["Unobtainable"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
 
-            if choice_item == "Frostbite":
-                add_item[str(user.id)]["Frostbite"] += 1
-                with open("unob.json",'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Fagdfaust IV":
-                add_item[str(user.id)]["Fagdfaust IV"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Coroller":
-                add_item[str(user.id)]["Coroller"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Vertigo":
-                add_item[str(user.id)]["Vertigo"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "RGB":
-                add_item[str(user.id)]["RGB"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Disintegrator":
-                add_item[str(user.id)]["Disintegrator"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Anti-matter":
-                add_item[str(user.id)]["Anti-matter"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Exotic":
-                add_item[str(user.id)]["Exotic"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Scouts Honor":
-                add_item[str(user.id)]["Scouts Honor"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Moonfeather":
-                add_item[str(user.id)]["Moonfeather"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Ghostie":
-                add_item[str(user.id)]["Ghostie"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Eternal Frost":
-                add_item[str(user.id)]["Eternal Frost"] += 1
-                with open("unob.json", 'w') as f:
-                   json.dump(add_item,f)
-            elif choice_item == "Keeper Of The Deep":
-                add_item[str(user.id)]["Keeper Of The Deep"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Flying Dutchman":
-                add_item[str(user.id)]["Flying Dutchman"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Assault Drone":
-                add_item[str(user.id)]["Assault Drone"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Deep Space":
-                add_item[str(user.id)]["Deep Space"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Mysterious Orb":
-                add_item[str(user.id)]["Mysterious Orb"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Bruisegg":
-                add_item[str(user.id)]["Bruisegg"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "ZENITH":
-                add_item[str(user.id)]["ZENITH"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Esper":
-                add_item[str(user.id)]["Esper"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Forbidden Tome":
-                add_item[str(user.id)]["Forbidden Tome"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "ESPER":
-                add_item[str(user.id)]["ESPER"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Attack Drone":
-                add_item[str(user.id)]["Attack Drone"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "DOS Armour":
-                add_item[str(user.id)]["DOS Armour"] += 1
-                with open("unob.json", 'w') as f:
-                   json.dump(add_item,f)
-            elif choice_item == "DOS":
-                add_item[str(user.id)]["DOS"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "DOS Walker":
-                add_item[str(user.id)]["DOS Walker"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "DOS Belt":
-                add_item[str(user.id)]["Fagdfaust IV"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
-            elif choice_item == "Devourer Of Souls":
-                add_item[str(user.id)]["Devourer Of Souls"] += 1
-                with open("unob.json", 'w') as f:
-                    json.dump(add_item,f)
+                if choice_item == "Frostbite":
+                    add_item[str(user.id)]["Frostbite"] += 1
+                    with open("unob.json",'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Fagdfaust IV":
+                    add_item[str(user.id)]["Fagdfaust IV"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Coroller":
+                    add_item[str(user.id)]["Coroller"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Vertigo":
+                    add_item[str(user.id)]["Vertigo"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "RGB":
+                    add_item[str(user.id)]["RGB"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Disintegrator":
+                    add_item[str(user.id)]["Disintegrator"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Anti-matter":
+                    add_item[str(user.id)]["Anti-matter"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Exotic":
+                    add_item[str(user.id)]["Exotic"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Scouts Honor":
+                    add_item[str(user.id)]["Scouts Honor"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Moonfeather":
+                    add_item[str(user.id)]["Moonfeather"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Ghostie":
+                    add_item[str(user.id)]["Ghostie"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Eternal Frost":
+                    add_item[str(user.id)]["Eternal Frost"] += 1
+                    with open("unob.json", 'w') as f:
+                       json.dump(add_item,f)
+                elif choice_item == "Keeper Of The Deep":
+                    add_item[str(user.id)]["Keeper Of The Deep"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Flying Dutchman":
+                    add_item[str(user.id)]["Flying Dutchman"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Assault Drone":
+                    add_item[str(user.id)]["Assault Drone"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Deep Space":
+                    add_item[str(user.id)]["Deep Space"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Mysterious Orb":
+                    add_item[str(user.id)]["Mysterious Orb"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Bruisegg":
+                    add_item[str(user.id)]["Bruisegg"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "ZENITH":
+                    add_item[str(user.id)]["ZENITH"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Esper":
+                    add_item[str(user.id)]["Esper"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Forbidden Tome":
+                    add_item[str(user.id)]["Forbidden Tome"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "ESPER":
+                    add_item[str(user.id)]["ESPER"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Attack Drone":
+                    add_item[str(user.id)]["Attack Drone"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "DOS Armour":
+                    add_item[str(user.id)]["DOS Armour"] += 1
+                    with open("unob.json", 'w') as f:
+                       json.dump(add_item,f)
+                elif choice_item == "DOS":
+                    add_item[str(user.id)]["DOS"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "DOS Walker":
+                    add_item[str(user.id)]["DOS Walker"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "DOS Belt":
+                    add_item[str(user.id)]["Fagdfaust IV"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
+                elif choice_item == "Devourer Of Souls":
+                    add_item[str(user.id)]["Devourer Of Souls"] += 1
+                    with open("unob.json", 'w') as f:
+                        json.dump(add_item,f)
 
-        elif 11 <= i <= 60:
-            await ctx.send("<a:spin:1243478409930080342> Congrats you spun out a contraband ")
+            elif 11 <= i <= 60:
+                await ctx.send("<a:spin:1243478409930080342> Congrats you spun out a contraband ")
 
-            member[str(user.id)]["Contraband"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
-        elif 61 <= i <= 300:
-            await ctx.send("<a:spin:1243478409930080342> Congrats on a random relic item")
+                member[str(user.id)]["Contraband"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            elif 61 <= i <= 300:
+                await ctx.send("<a:spin:1243478409930080342> Congrats on a random relic item")
 
-            member[str(user.id)]["Relic"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
-        elif 301 <= i <= 1700:
-            await ctx.send("<a:spin:1243478409930080342> You just wasted your time for a stupid legendary item")
- 
-            member[str(user.id)]["Legendary"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
-        elif 1701 <= i <= 5200:
-            await ctx.send("<a:spin:1243478409930080342> You spun some useless epic item")
- 
-            member[str(user.id)]["Epic"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
+                member[str(user.id)]["Relic"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            elif 301 <= i <= 1700:
+                await ctx.send("<a:spin:1243478409930080342> You just wasted your time for a stupid legendary item")
+    
+                member[str(user.id)]["Legendary"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            elif 1701 <= i <= 5200:
+                await ctx.send("<a:spin:1243478409930080342> You spun some useless epic item")
+    
+                member[str(user.id)]["Epic"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await ctx.send("<a:spin:1243478409930080342> You got some trash rare item")
+    
+                member[str(user.id)]["Rare"] += 1
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+
+    elif x <= 0:
+        await ctx.send("Invalid number of spin.")
+
+    elif x > 200:
+        await ctx.send("200 is the spin cap.")
+
+    else:
+        if 500 > bal:
+            await ctx.send("You are so poor that you dont have enough KR for 1 time spin <:LMAO:945539956066115594> ")
+
+        elif 500*x > bal:
+            await ctx.send(f"You only have enough KR for {bal//500} times spin !!")
+
         else:
-            await ctx.send("<a:spin:1243478409930080342> You got some trash rare item")
- 
-            member[str(user.id)]["Rare"] += 1
-            with open("inventory.json",'w') as f:
-                json.dump(member,f)
+            rewards = []
+
+            member = await get_inv_data()
+
+            users = await get_bank_data()
+
+            user = ctx.author
+
+            users[str(user.id)]["KR"] -= 500*x
+            with open("bank.json",'w') as f:
+                json.dump(users,f)
+
+            index = 0
+
+            while index < x:
+                i = random.randint(1, 10000)
+                if i == 1:
+                    member[str(user.id)]["Nitro Basic ticket"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append("**Nitro Basic ticket**")
+
+                elif 2 <= i <= 10:
+                    await open_inv(ctx.author)
+                    member = await get_inv_data()
+
+                    await collected_unob(ctx.author)
+                    add_item = await get_unob_data()
+
+                    user = ctx.author
+    
+                    unobtainable_item = ["Frostbite", "Fagdfaust IV", "Coroller", "Vertigo", "RGB", "Disintegrator", "Anti-matter", "Exotic", "Scouts Honor", "Moonfeather", "Ghostie", "Eternal Frost", "Keeper Of The Deep", "Flying Dutchman", "Assault Drone", "Deep Space", "Mysterious Orb", "Bruisegg", "ZENITH", "Esper", "Forbidden Tome", "ESPER", "Attack Drone", "DOS Armour", "DOS", "DOS Walker", "DOS Belt", "Devourer Of Souls"]
+                    choice_item = random.choice(unobtainable_item)
+
+                    member[str(user.id)]["Unobtainable"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append(f"**{choice_item}**")
+
+                    if choice_item == "Frostbite":
+                        add_item[str(user.id)]["Frostbite"] += 1
+                        with open("unob.json",'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Fagdfaust IV":
+                        add_item[str(user.id)]["Fagdfaust IV"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Coroller":
+                        add_item[str(user.id)]["Coroller"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Vertigo":
+                        add_item[str(user.id)]["Vertigo"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "RGB":
+                        add_item[str(user.id)]["RGB"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Disintegrator":
+                        add_item[str(user.id)]["Disintegrator"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Anti-matter":
+                        add_item[str(user.id)]["Anti-matter"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Exotic":
+                        add_item[str(user.id)]["Exotic"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Scouts Honor":
+                        add_item[str(user.id)]["Scouts Honor"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Moonfeather":
+                        add_item[str(user.id)]["Moonfeather"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Ghostie":
+                        add_item[str(user.id)]["Ghostie"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Eternal Frost":
+                        add_item[str(user.id)]["Eternal Frost"] += 1
+                        with open("unob.json", 'w') as f:
+                           json.dump(add_item,f)
+
+                    elif choice_item == "Keeper Of The Deep":
+                        add_item[str(user.id)]["Keeper Of The Deep"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Flying Dutchman":
+                        add_item[str(user.id)]["Flying Dutchman"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Assault Drone":
+                        add_item[str(user.id)]["Assault Drone"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Deep Space":
+                        add_item[str(user.id)]["Deep Space"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Mysterious Orb":
+                        add_item[str(user.id)]["Mysterious Orb"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Bruisegg":
+                        add_item[str(user.id)]["Bruisegg"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "ZENITH":
+                        add_item[str(user.id)]["ZENITH"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Esper":
+                        add_item[str(user.id)]["Esper"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Forbidden Tome":
+                        add_item[str(user.id)]["Forbidden Tome"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "ESPER":
+                        add_item[str(user.id)]["ESPER"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Attack Drone":
+                        add_item[str(user.id)]["Attack Drone"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "DOS Armour":
+                        add_item[str(user.id)]["DOS Armour"] += 1
+                        with open("unob.json", 'w') as f:
+                           json.dump(add_item,f)
+
+                    elif choice_item == "DOS":
+                        add_item[str(user.id)]["DOS"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "DOS Walker":
+                        add_item[str(user.id)]["DOS Walker"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "DOS Belt":
+                        add_item[str(user.id)]["DOS Belt"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                    elif choice_item == "Devourer Of Souls":
+                        add_item[str(user.id)]["Devourer Of Souls"] += 1
+                        with open("unob.json", 'w') as f:
+                            json.dump(add_item,f)
+
+                elif 11 <= i <= 60:
+                    member[str(user.id)]["Contraband"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append("**Contraband**")
+
+                elif 61 <= i <= 300:
+                    member[str(user.id)]["Relic"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append("**Relic**")
+
+                elif 301 <= i <= 1700:
+                    member[str(user.id)]["Legendary"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append("Legendary")
+
+                elif 1701 <= i <= 5200:
+                    member[str(user.id)]["Epic"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append("Epic")
+
+                else:
+                    member[str(user.id)]["Rare"] += 1
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+                    rewards.append("Rare")
+
+                if index ==x:
+                    break
+                index += 1
+
+            await ctx.send(f"<a:spin:1243478409930080342> {ctx.author.name} spun out: {rewards}")
 
 @client.command()
 async def use(ctx):
@@ -1382,13 +1638,14 @@ async def get_help(ctx):
         em = discord.Embed(title = f"All command:", color = discord.Color.red())
         em.add_field(name= "toss + (kr you want to bet)", value="chance to x2 the bet", inline= False)
         em.add_field(name= "dice + (kr you want to bet)", value="Chance to x9 the bet", inline= False)
-        em.add_field(name= "spin", value="500 KR per spin", inline= False)
+        em.add_field(name= "spin + (number of spin)", value="500 KR per spin", inline= False)
         em.add_field(name= "use", value= "use a Nitro Basic ticket", inline= False)
         em.add_field(name= "add", value= "@user/userid + ``amount of kr`` to add some kr to other balance  (only high mod can use this)", inline= False)
         em.add_field(name= "lb", value= "to get the top 10 people with most KR", inline= False)
         em.add_field(name= "warning", value= "Leave blank to check your self or @user/user_id to get someone else warning", inline= False)
-        em.add_field(name= "warn + @user/userid + reason", value= "Use to warn people  (only high mod can use this)", inline= False)
-        em.add_field(name= "remove + @user/userid + number", value= "Remove somebody warn, leave space to remove 1  (only high mod can use this)", inline= False)
+        em.add_field(name= "warn + @user/userid + (reason)", value= "Use to warn people  (only high mod can use this)", inline= False)
+        em.add_field(name= "remove + @user/userid + (number)", value= "Remove somebody warn, leave space to remove 1  (only high mod can use this)", inline= False)
+        em.add_field(name= "remove_all + @user/userid", value= "Remove all somebody warns  (only high mod can use this)", inline= False)
         view = View()
         view.add_item(button_previous1)
         await interaction.response.edit_message(embed = em, view = view)
