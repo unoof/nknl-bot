@@ -45,9 +45,9 @@ async def speczy(ctx):
     await ctx.send("<a:gigachad:1241292798595170346>")
 
 @client.command()
+@commands.cooldown(1, 5*60, commands.BucketType.user)
 async def penis(ctx):
     await ctx.send("https://tenor.com/view/penis-haha-gif-18597041")
-
 
 async def open_warn(user):
     users = await get_warns()
@@ -877,6 +877,275 @@ async def search(ctx):
     else:
         await ctx.send(f"You search hard but still found nothing, haha skill issues <:LMAO:945539956066115594> !!")
 
+@client.command()                                                           #rob earn/lose 0 - 500
+@commands.cooldown(1,3*60, commands.BucketType.user)
+async def rob(ctx, mention: discord.Member):
+    await open_account(ctx.author)
+    await open_account(mention)
+
+    users = await get_bank_data()
+
+    thief = ctx.author
+    victim = mention
+
+
+    i = random.randint(1, 1000)
+
+    if i == 1:
+        amount = random.randint(151, 500)
+
+        bal_of_thief = await update_bank(thief)
+        bal_of_victim = await update_bank(victim)
+
+        index = random.randint(1,2)
+        if index == 2:
+            if amount > bal_of_victim:
+                await ctx.send(f"{ctx.author.name} successful rob all {mention} KR")
+
+                users[str(victim.id)]["KR"] -= bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+            else:
+                await ctx.send(f"{ctx.author.name} successful rob {mention}: {amount} KR")
+
+                users[str(victim.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+        else:
+            if amount > bal_of_thief:
+                await ctx.send(f"{thief.name} got caught and pay all KR to {victim}")
+
+                users[str(victim.id)]["KR"] += bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] -= bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+            else:
+                await ctx.send(f"{thief.name} got caught and pay {amount} KR to {victim}")
+
+                users[str(thief.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(victim.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+    elif 2 <= i <= 50:
+        amount = random.randint(101, 150)
+
+        bal_of_thief = await update_bank(thief)
+        bal_of_victim = await update_bank(victim)
+
+        index = random.randint(1,2)
+        if index == 2:
+            if amount > bal_of_victim:
+                await ctx.send(f"{ctx.author.name} successful rob all {mention} KR")
+
+                users[str(victim.id)]["KR"] -= bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+            else:
+                await ctx.send(f"{ctx.author.name} successful rob {mention}: {amount} KR")
+
+                users[str(victim.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+        else:
+            if amount > bal_of_thief:
+                await ctx.send(f"{thief.name} got caught and pay all KR to {victim}")
+
+                users[str(victim.id)]["KR"] += bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] -= bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+            else:
+                await ctx.send(f"{thief.name} got caught and pay {amount} KR to {victim}")
+
+                users[str(thief.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(victim.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+    elif 51 <= i <= 150:
+        amount = random.randint(51, 100)
+
+        bal_of_thief = await update_bank(thief)
+        bal_of_victim = await update_bank(victim)
+
+        index = random.randint(1,2)
+        if index == 2:
+            if amount > bal_of_victim:
+                await ctx.send(f"{ctx.author.name} successful rob all {mention} KR")
+
+                users[str(victim.id)]["KR"] -= bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+            else:
+                await ctx.send(f"{ctx.author.name} successful rob {mention}: {amount} KR")
+
+                users[str(victim.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+        else:
+            if amount > bal_of_thief:
+                await ctx.send(f"{thief.name} got caught and pay all KR to {victim}")
+
+                users[str(victim.id)]["KR"] += bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] -= bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+            else:
+                await ctx.send(f"{thief.name} got caught and pay {amount} KR to {victim}")
+
+                users[str(thief.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(victim.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+    elif 151 <= i <= 350:
+        amount = random.randint(31, 50)
+
+        bal_of_thief = await update_bank(thief)
+        bal_of_victim = await update_bank(victim)
+
+        index = random.randint(1,2)
+        if index == 2:
+            if amount > bal_of_victim:
+                await ctx.send(f"{ctx.author.name} successful rob all {mention} KR")
+
+                users[str(victim.id)]["KR"] -= bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+            else:
+                await ctx.send(f"{ctx.author.name} successful rob {mention}: {amount} KR")
+
+                users[str(victim.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+        else:
+            if amount > bal_of_thief:
+                await ctx.send(f"{thief.name} got caught and pay all KR to {victim}")
+
+                users[str(victim.id)]["KR"] += bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] -= bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+            else:
+                await ctx.send(f"{thief.name} got caught and pay {amount} KR to {victim}")
+
+                users[str(thief.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(victim.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+    else:
+        amount = random.randint(21, 30)
+
+        bal_of_thief = await update_bank(thief)
+        bal_of_victim = await update_bank(victim)
+
+        index = random.randint(1,2)
+        if index == 2:
+            if amount > bal_of_victim:
+                await ctx.send(f"{ctx.author.name} successful rob all {mention} KR")
+
+                users[str(victim.id)]["KR"] -= bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += bal_of_victim
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+            else:
+                await ctx.send(f"{ctx.author.name} successful rob {mention}: {amount} KR")
+
+                users[str(victim.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+        else:
+            if amount > bal_of_thief:
+                await ctx.send(f"{thief.name} got caught and pay all KR to {victim}")
+
+                users[str(victim.id)]["KR"] += bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(thief.id)]["KR"] -= bal_of_thief
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+            else:
+                await ctx.send(f"{thief.name} got caught and pay {amount} KR to {victim}")
+
+                users[str(thief.id)]["KR"] -= amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                users[str(victim.id)]["KR"] += amount
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
 @client.command()
 @commands.cooldown(1, 3, commands.BucketType.user)
 async def toss(ctx, bet: int):
@@ -899,29 +1168,35 @@ async def toss(ctx, bet: int):
         button2 = Button(label= "back", style= discord.ButtonStyle.primary, emoji="<:kr2:1244824676115419199>")
 
         async def button_callback(interaction):
-            i = random.randint(1, 2)
-            if i == 1:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*2} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*2
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 2)
+                if i == 1:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*2} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*2
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button1.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 2)
-            if i == 2:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*2} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*2
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 2)
+                if i == 2:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*2} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*2
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button2.callback = button_callback
 
         view = View()
@@ -959,121 +1234,147 @@ async def dice(ctx, bet: int):
         button9 = Button(emoji= "<:dice_9:1244829007363444767>", style= discord.ButtonStyle.primary)
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 1:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 1:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button1.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 2:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 2:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button2.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 3:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 3:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button3.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 4:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 4:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button4.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 5:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 5:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button5.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 6:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 6:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button6.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 7:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 7:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button7.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 8:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 8:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button8.callback = button_callback
 
         async def button_callback(interaction):
-            i = random.randint(1, 9)
-            if i == 9:
-                em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-                users[str(user.id)]["KR"] += bet*9
-                with open("bank.json",'w') as f:
-                    json.dump(users,f)
+            if interaction.user == ctx.author:
+                i = random.randint(1, 9)
+                if i == 9:
+                    em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+                    users[str(user.id)]["KR"] += bet*9
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+                else:
+                    em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
             else:
-                em = discord.Embed(title = f"You are so unlucky: you lose {bet} KR", color = discord.Color.red())
-                await interaction.response.edit_message(embed = em, view = None)
-
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
         button9.callback = button_callback
 
         view = View()
@@ -1284,8 +1585,8 @@ async def spin(ctx, x= 1):
     elif x <= 0:
         await ctx.send("Invalid number of spin.")
 
-    elif x > 200:
-        await ctx.send("200 is the spin cap.")
+    elif x > 1000:
+        await ctx.send("1000 is the spin cap.")
 
     else:
         if 500 > bal:
@@ -1481,14 +1782,14 @@ async def spin(ctx, x= 1):
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
 
-                    rewards.append("**Contraband**")
+                    rewards.append("Contraband")
 
                 elif 61 <= i <= 300:
                     member[str(user.id)]["Relic"] += 1
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
 
-                    rewards.append("**Relic**")
+                    rewards.append("Relic")
 
                 elif 301 <= i <= 1700:
                     member[str(user.id)]["Legendary"] += 1
@@ -1515,7 +1816,55 @@ async def spin(ctx, x= 1):
                     break
                 index += 1
 
-            await ctx.send(f"<a:spin:1243478409930080342> {ctx.author.name} spun out: {rewards}")
+            rare = 0
+            epic = 0
+            legend = 0
+            relic = 0
+            contra = 0
+
+            rare_items = 0
+            epic_items = 0
+            legend_items = 0
+            relic_items = 0
+            contra_items = 0
+
+            for items in rewards:
+                if items == "Rare":
+                    rare += 1
+                elif items == "Epic":
+                    epic += 1
+                elif items == "Legendary":
+                    legend += 1
+                elif items =="Relic":
+                    relic += 1
+                elif items == "Contraband":
+                    contra += 1
+            while rare_items < rare:
+                rewards.remove("Rare")
+                if rare_items == rare:
+                    break
+                rare_items += 1
+            while epic_items < epic:
+                rewards.remove("Epic")
+                if epic_items == epic:
+                    break
+                epic_items += 1
+            while legend_items < legend:
+                rewards.remove("Legendary")
+                if legend_items == legend:
+                    break
+                legend_items += 1
+            while relic_items < relic:
+                rewards.remove("Relic")
+                if relic_items == relic:
+                    break
+                relic_items += 1
+            while contra_items < contra:
+                rewards.remove("Contraband")
+                if contra_items == contra:
+                    break
+                contra_items += 1
+            await ctx.send(f"<a:spin:1243478409930080342> {ctx.author.name} spun out: Rare = {rare}, Epic = {epic}, Legendary = {legend}, Relic = {relic}, Contraband = {contra}, other: {rewards}")
 
 @client.command()
 async def use(ctx):
@@ -1534,7 +1883,7 @@ async def use(ctx):
             json.dump(member,f)
         await ctx.send(f"{ctx.author.name} use the Nitro Basic ticket, capture this message as a proof and DM PTJ for prize")
 
-@client.command()
+@client.command(aliases=['gift', 'donate'])
 async def give(ctx,mention: discord.Member, amount :int):
     await open_account(mention)
     await open_account(ctx.author)
@@ -1576,6 +1925,32 @@ async def add(ctx, mention: discord.Member, amount: int):
         await ctx.send(f"Add {amount} KR to {mention}'s balance")
 
 @client.command()
+@commands.has_role('*')
+async def remove_KR(ctx, mention: discord.Member, amount: int):
+    if amount < 0:
+        await ctx.send("Invalid amount of KR")
+    else:
+        await open_account(mention)
+
+        bal = await update_bank(mention)
+        if amount >= bal:
+            users = await get_bank_data()
+    
+            users[str(mention.id)]["KR"] -= bal
+            with open("bank.json",'w') as f:
+                json.dump(users,f)
+
+            await ctx.send(f"Successful remove all {mention}'s KR")
+        else:
+            users = await get_bank_data()
+    
+            users[str(mention.id)]["KR"] -= amount
+            with open("bank.json",'w') as f:
+                json.dump(users,f)
+        
+            await ctx.send(f"Successful {amount} all {mention}'s KR")
+
+@client.command()
 async def lb(ctx):
     users = await get_bank_data()
     leader_board = {}
@@ -1608,106 +1983,160 @@ async def get_help(ctx):
     button2 = Button(label= "Chances", style= discord.ButtonStyle.primary)
     button3 = Button(label= "Source", style= discord.ButtonStyle.primary, url= "https://github.com/unoof/nknl-bot")
     button5 = Button(label= "Work", style= discord.ButtonStyle.primary)
-    button6 = Button(label= "Beg / Search", style= discord.ButtonStyle.primary)
+    button6 = Button(label= "Beg / Search/ Rob", style= discord.ButtonStyle.primary)
     button7 = Button(label= "Spin", style= discord.ButtonStyle.primary)
     button_back1 = Button(label="❌", style= discord.ButtonStyle.primary)
-    button_back2 = Button(label="↩", style= discord.ButtonStyle.primary)
-    button_next1 = Button(label= "➡", style= discord.ButtonStyle.primary)
-    button_previous1 = Button(label= "⬅", style= discord.ButtonStyle.primary)
+    button_back2 = Button(label="go back", style= discord.ButtonStyle.primary)
 
     async def button_callback(interaction):
-        em = discord.Embed(title = f"All command:", color = discord.Color.red())
-        em.add_field(name= "ptj_dumb", value="No CD", inline= False)
-        em.add_field(name= "ptj", value="No CD", inline= False)
-        em.add_field(name= "oof", value="No CD", inline= False)
-        em.add_field(name= "speczy", value="No CD", inline= False)
-        em.add_field(name= "penis",  value="No CD", inline= False)
-        em.add_field(name= "balance", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
-        em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
-        em.add_field(name= "work", value="10 mins cooldown", inline= False)
-        em.add_field(name= "beg", value="15 secs cooldown", inline= False)
-        em.add_field(name= "search", value="15 secs cooldown", inline= False)
+        if interaction.user == ctx.author:
 
-        view = View()
-        view.add_item(button_next1)
-        view.add_item(button_back1)
-        await interaction.response.edit_message(embed = em, view = view)
+            button1 = Button(label= "For fun", style= discord.ButtonStyle.primary)
+            button_back2 = Button(label="go back", style= discord.ButtonStyle.primary)
+            button2 = Button(label= "Main commands", style= discord.ButtonStyle.primary)
+            button3 = Button(label= "Mod only", style= discord.ButtonStyle.primary)
+
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"All fun command:", color = discord.Color.red())
+                    em.add_field(name= "ptj_dumb", value="No CD", inline= False)
+                    em.add_field(name= "ptj", value="No CD", inline= False)
+                    em.add_field(name= "oof", value="No CD", inline= False)
+                    em.add_field(name= "speczy", value="No CD", inline= False)
+                    em.add_field(name= "penis",  value="5 minutes CD", inline= False)
+
+                    view = View()
+                    view.add_item(button_back2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button1.callback = button_callback
+
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"All main command:", color = discord.Color.red())
+                    em.add_field(name= "balance", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
+                    em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
+                    em.add_field(name= "work", value="10 mins cooldown", inline= False)
+                    em.add_field(name= "beg", value="15 secs cooldown", inline= False)
+                    em.add_field(name= "search", value="15 secs cooldown", inline= False)
+                    em.add_field(name= "rob", value="3 mins cooldown", inline= False)
+                    em.add_field(name= "toss + (kr you want to bet)", value="chance to x2 the bet", inline= False)
+                    em.add_field(name= "dice + (kr you want to bet)", value="Chance to x9 the bet", inline= False)
+                    em.add_field(name= "give/gift/donate + @user/userid + (amount)", value= "to give somebody any amount of KR", inline= False)
+                    em.add_field(name= "spin + (number of spin)", value="500 KR per spin", inline= False)
+                    em.add_field(name= "use", value= "use a Nitro Basic ticket", inline= False)
+
+                    view = View()
+                    view.add_item(button_back2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button2.callback = button_callback
+
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"All mod only command:", color = discord.Color.red())
+                    em.add_field(name= "add + @user/userid + (amount of kr)", value= "To add some kr to other balance  (only high mod can use this)", inline= False)
+                    em.add_field(name= "remove_KR + @user/userid + (number)", value= "To remove an amount of kr  (only high mod can use this)")
+                    em.add_field(name= "warning", value= "Leave blank to check your self or @user/user_id to get someone else warning", inline= False)
+                    em.add_field(name= "warn + @user/userid + (reason)", value= "Use to warn people", inline= False)
+                    em.add_field(name= "remove + @user/userid + (number)", value= "Remove somebody warn, leave space to remove 1", inline= False)
+                    em.add_field(name= "remove_all + @user/userid", value= "Remove all somebody warns", inline= False)
+
+                    view = View()
+                    view.add_item(button_back2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button3.callback = button_callback
+
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"All command type:", color = discord.Color.red())
+
+                    view = View()
+                    view.add_item(button1)
+                    view.add_item(button2)
+                    view.add_item(button3)
+                    view.add_item(button_back1)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button_back2.callback = button_callback
+
+            em = discord.Embed(title = f"All command type:", color = discord.Color.red())
+
+            view = View()
+            view.add_item(button_back1)
+            view.add_item(button1)
+            view.add_item(button2)
+            view.add_item(button3)
+            await interaction.response.edit_message(embed = em, view = view)
+        else:
+            await interaction.response.send_message("You can not click this button !!", ephemeral=True)
     button1.callback = button_callback
 
     async def button_callback(interaction):
-        em = discord.Embed(title = f"All command:", color = discord.Color.red())
-        em.add_field(name= "toss + (kr you want to bet)", value="chance to x2 the bet", inline= False)
-        em.add_field(name= "dice + (kr you want to bet)", value="Chance to x9 the bet", inline= False)
-        em.add_field(name= "spin + (number of spin)", value="500 KR per spin", inline= False)
-        em.add_field(name= "use", value= "use a Nitro Basic ticket", inline= False)
-        em.add_field(name= "add", value= "@user/userid + ``amount of kr`` to add some kr to other balance  (only high mod can use this)", inline= False)
-        em.add_field(name= "lb", value= "to get the top 10 people with most KR", inline= False)
-        em.add_field(name= "warning", value= "Leave blank to check your self or @user/user_id to get someone else warning", inline= False)
-        em.add_field(name= "warn + @user/userid + (reason)", value= "Use to warn people  (only high mod can use this)", inline= False)
-        em.add_field(name= "remove + @user/userid + (number)", value= "Remove somebody warn, leave space to remove 1  (only high mod can use this)", inline= False)
-        em.add_field(name= "remove_all + @user/userid", value= "Remove all somebody warns  (only high mod can use this)", inline= False)
-        view = View()
-        view.add_item(button_previous1)
-        await interaction.response.edit_message(embed = em, view = view)
-    button_next1.callback = button_callback
+        if interaction.user == ctx.author:
 
-    async def button_callback(interaction):
-        em = discord.Embed(title = f"All command:", color = discord.Color.red())
-        em.add_field(name= "ptj_dump", value="No CD", inline= False)
-        em.add_field(name= "ptj", value="No CD", inline= False)
-        em.add_field(name= "oof", value="No CD", inline= False)
-        em.add_field(name= "speczy", value="No CD", inline= False)
-        em.add_field(name= "penis",  value="No CD", inline= False)
-        em.add_field(name= "balance", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
-        em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
-        em.add_field(name= "work", value="10 mins cooldown", inline= False)
-        em.add_field(name= "beg", value="15 secs cooldown", inline= False)
-        em.add_field(name= "search", value="15 secs cooldown", inline= False)
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"Work chance:", color = discord.Color.red())
+                    em.add_field(name= "Random", value="500 - 1500")
+                    view = View()
+                    view.add_item(button_back2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button5.callback = button_callback
+            
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"Beg / search/ rob chance:", color = discord.Color.red())
+                    em.add_field(name= "0 kr", value="20%", inline= False)
+                    em.add_field(name= "20 - 30 kr", value="45%", inline= False)
+                    em.add_field(name= "31 - 50 kr", value="20%", inline= False)
+                    em.add_field(name= "51 - 100 kr", value="10%", inline= False)
+                    em.add_field(name= "101 - 150 kr", value="4,9%", inline= False)
+                    em.add_field(name= "151 - 500 kr", value="0,1%", inline= False)
+                    view = View()
+                    view.add_item(button_back2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button6.callback = button_callback
 
-        view = View()
-        view.add_item(button_next1)
-        view.add_item(button_back1)
-        await interaction.response.edit_message(embed = em, view = view)
-    button_previous1.callback = button_callback
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"Spin chance:", color = discord.Color.red())
+                    em.add_field(name= "Rare item", value="48%", inline= False)
+                    em.add_field(name= "Epic item", value="35%", inline= False)
+                    em.add_field(name= "Legendary item", value="14%", inline= False)
+                    em.add_field(name= "Relic item", value="2,4%", inline= False)
+                    em.add_field(name= "Contraband item", value="0,5%", inline= False)
+                    em.add_field(name= "Unobtainable item", value="0,09%", inline= False)
+                    em.add_field(name= "Nitro Basic ticket", value="0,01%", inline= False)
+                    view = View()
+                    view.add_item(button_back2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button7.callback = button_callback
 
-    async def button_callback(interaction):
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(button5)
+                    view.add_item(button6)
+                    view.add_item(button7)
+                    em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button_back2.callback = button_callback
 
-        async def button_callback(interaction):
-            em = discord.Embed(title = f"Work chance:", color = discord.Color.red())
-            em.add_field(name= "Random", value="500 - 1500")
-            view = View()
-            view.add_item(button_back2)
-            await interaction.response.edit_message(embed = em, view = view)
-        button5.callback = button_callback
-        
-        async def button_callback(interaction):
-            em = discord.Embed(title = f"Beg / search chance:", color = discord.Color.red())
-            em.add_field(name= "0 kr", value="20%", inline= False)
-            em.add_field(name= "20 - 30 kr", value="45%", inline= False)
-            em.add_field(name= "31 - 50 kr", value="20%", inline= False)
-            em.add_field(name= "51 - 100 kr", value="10%", inline= False)
-            em.add_field(name= "101 - 150 kr", value="4,9%", inline= False)
-            em.add_field(name= "151 - 500 kr", value="0,1%", inline= False)
-            view = View()
-            view.add_item(button_back2)
-            await interaction.response.edit_message(embed = em, view = view)
-        button6.callback = button_callback
-
-        async def button_callback(interaction):
-            em = discord.Embed(title = f"Spin chance:", color = discord.Color.red())
-            em.add_field(name= "Rare item", value="48%", inline= False)
-            em.add_field(name= "Epic item", value="35%", inline= False)
-            em.add_field(name= "Legendary item", value="14%", inline= False)
-            em.add_field(name= "Relic item", value="2,4%", inline= False)
-            em.add_field(name= "Contraband item", value="0,5%", inline= False)
-            em.add_field(name= "Unobtainable item", value="0,09%", inline= False)
-            em.add_field(name= "Nitro Basic ticket", value="0,01%", inline= False)
-            view = View()
-            view.add_item(button_back2)
-            await interaction.response.edit_message(embed = em, view = view)
-        button7.callback = button_callback
-
-        async def button_callback(interaction):
             view = View()
             view.add_item(button_back1)
             view.add_item(button5)
@@ -1715,25 +2144,21 @@ async def get_help(ctx):
             view.add_item(button7)
             em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
             await interaction.response.edit_message(embed = em, view = view)
-        button_back2.callback = button_callback
-
-        view = View()
-        view.add_item(button_back1)
-        view.add_item(button5)
-        view.add_item(button6)
-        view.add_item(button7)
-        em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
-        await interaction.response.edit_message(embed = em, view = view)
+        else:
+            await interaction.response.send_message("You can not click this button !!", ephemeral=True)
     button2.callback= button_callback
 
     async def button_callback(interaction):
-        view = View()
-        view.add_item(button1)
-        view.add_item(button2)
-        view.add_item(button3)
-        em = discord.Embed(title = f"Get your help:", color = discord.Color.red())
-        em.add_field(name= "Preflix", value="!")
-        await interaction.response.edit_message(embed = em, view = view)
+        if interaction.user == ctx.author:
+            view = View()
+            view.add_item(button1)
+            view.add_item(button2)
+            view.add_item(button3)
+            em = discord.Embed(title = f"Get your help:", color = discord.Color.red())
+            em.add_field(name= "Preflix", value="!")
+            await interaction.response.edit_message(embed = em, view = view)
+        else:
+            await interaction.response.send_message("You can not click this button !!", ephemeral=True)
     button_back1.callback = button_callback
 
     view = View()
