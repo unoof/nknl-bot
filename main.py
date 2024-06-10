@@ -30,6 +30,16 @@ async def ptj_dumb(ctx: commands.Context):
     await ctx.send("yeah, i agree")
     await client.tree.sync()
 
+@client.hybrid_command()                                                           #command space
+async def imgay(ctx: commands.Context):
+    await ctx.send("yes, ik")
+    await client.tree.sync()
+
+@client.hybrid_command()                                                           #command space
+async def wee(ctx: commands.Context):
+    await ctx.send("https://tenor.com/view/rotating-skull-gif-24524852")
+    await client.tree.sync()
+
 @client.command()                                                           #write a msg to a channel
 async def msg(ctx, channel: discord.TextChannel, *, message):
     await channel.send(message)
@@ -282,7 +292,7 @@ async def update_inv(user, change = 0, mode = "Unobtainable"):
     unob = member[str(user.id)]["Unobtainable"]
     return unob
 
-@client.command()                                                           #make and check bank mine of other account
+@client.command(aliases=['bal'])                                                           #make and check bank mine of other account
 async def balance(ctx, mention: discord.Member = None):
     if mention != None:
         await open_account(mention)
@@ -505,7 +515,7 @@ async def inv(ctx, mention: discord.Member = None):
             async def button_callback(interaction):
                 em = discord.Embed(title = f"{mention}'s inventory", color = discord.Color.red())
                 em.add_field(name= "Rare", value = Rare, inline= False)
-                em.add_field(name= "Epic", value = Epic)
+                em.add_field(name= "Epic", value = Epic, inline= False)
                 em.add_field(name= "Legendary", value = Legendary, inline= False)
                 em.add_field(name= "Relic", value = Relic, inline= False)
                 em.add_field(name= "Contraband", value = Contraband, inline= False)
@@ -757,6 +767,153 @@ async def inv(ctx, mention: discord.Member = None):
             view.add_item(button1)
 
             await ctx.send(embed = em, view = view)
+
+@client.command()
+async def sell(ctx, number_of_sell: int = 1):
+    await open_account(ctx.author)
+    
+    await open_inv(ctx.author)
+
+    if number_of_sell <= 0:
+        await ctx.send("Invalid number of sell")
+
+    else:
+        member = await get_inv_data()
+
+        users = await get_bank_data()
+
+        user = ctx.author
+
+        button1 = Button(label= "Rare", style= discord.ButtonStyle.primary)
+        button2 = Button(label= "Epic", style= discord.ButtonStyle.primary)
+        button3 = Button(label= "Legendary", style= discord.ButtonStyle.primary)
+        button4 = Button(label= "Relic", style= discord.ButtonStyle.primary)
+        button5 = Button(label= "Contraband", style= discord.ButtonStyle.primary)
+        button6 = Button(label= "Unobtainable", style= discord.ButtonStyle.primary)
+
+        async def button_callback(interaction):
+            inv = member[str(user.id)]["Rare"]
+            if interaction.user == ctx.author:
+                if inv >= number_of_sell:
+                    em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Rare items", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    users[str(user.id)]["KR"] += number_of_sell*30
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+
+                    member[str(user.id)]["Rare"] -= number_of_sell
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button1.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(user.id)]["Epic"]
+                if inv >= number_of_sell:
+                    em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Epic items", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    users[str(user.id)]["KR"] += number_of_sell*100
+                    with open("bank.json",'w') as f:
+                        json.dump(users,f)
+
+                    member[str(user.id)]["Epic"] -= number_of_sell
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button2.callback = button_callback
+
+        async def button_callback(interaction):
+            inv = member[str(user.id)]["Legendary"]
+            if inv >= number_of_sell:
+                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Legendary items", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                users[str(user.id)]["KR"] += number_of_sell*1000
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                member[str(user.id)]["Legendary"] -= number_of_sell
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+        button3.callback = button_callback
+
+        async def button_callback(interaction):
+            inv = member[str(user.id)]["Relic"]
+            if inv >= number_of_sell:
+                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Relic items", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                users[str(user.id)]["KR"] += number_of_sell*5000
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                member[str(user.id)]["Relic"] -= number_of_sell
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+        button4.callback = button_callback
+
+        async def button_callback(interaction):
+            inv = member[str(user.id)]["Contraband"]
+            if inv >= number_of_sell:
+                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Contraband items", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                users[str(user.id)]["KR"] += number_of_sell*25000
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                member[str(user.id)]["Contraband"] -= number_of_sell
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+        button5.callback = button_callback
+
+        async def button_callback(interaction):
+            inv = member[str(user.id)]["Unobtainable"]
+            if inv >= number_of_sell:
+                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Unobtainable items", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                users[str(user.id)]["KR"] += number_of_sell*100000
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                member[str(user.id)]["Unobtainable"] -= number_of_sell
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+        button6.callback = button_callback
+
+        view = View()
+        view.add_item(button1)
+        view.add_item(button2)
+        view.add_item(button3)
+        view.add_item(button4)
+        view.add_item(button5)
+        view.add_item(button6)
+        em = discord.Embed(title = f"Choose which items you want to sell {number_of_sell} items:", color = discord.Color.red())
+        await ctx.send(embed = em, view = view)
 
 @client.command()                                                           #work earn 500 - 1000
 @commands.cooldown(1, 10*60, commands.BucketType.user)
@@ -2015,13 +2172,9 @@ async def lb(ctx):
 @client.command()
 async def get_help(ctx):
     button1 = Button(label= "Commands", style= discord.ButtonStyle.primary)
-    button2 = Button(label= "Chances", style= discord.ButtonStyle.primary)
+    button2 = Button(label= "Chances / sell prices", style= discord.ButtonStyle.primary)
     button3 = Button(label= "Source", style= discord.ButtonStyle.primary, url= "https://github.com/unoof/nknl-bot")
-    button5 = Button(label= "Work", style= discord.ButtonStyle.primary)
-    button6 = Button(label= "Beg / Search/ Rob", style= discord.ButtonStyle.primary)
-    button7 = Button(label= "Spin", style= discord.ButtonStyle.primary)
     button_back1 = Button(label="❌", style= discord.ButtonStyle.primary)
-    button_back2 = Button(label="go back", style= discord.ButtonStyle.primary)
 
     async def button_callback(interaction):
         if interaction.user == ctx.author:
@@ -2039,6 +2192,8 @@ async def get_help(ctx):
                     em.add_field(name= "oof", value="No CD", inline= False)
                     em.add_field(name= "speczy", value="No CD", inline= False)
                     em.add_field(name= "penis",  value="5 minutes CD", inline= False)
+                    em.add_field(name= "imgay",  value="No CD", inline= False)
+                    em.add_field(name= "wee",  value="No CD", inline= False)
 
                     view = View()
                     view.add_item(button_back2)
@@ -2050,7 +2205,7 @@ async def get_help(ctx):
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
                     em = discord.Embed(title = f"All main command:", color = discord.Color.red())
-                    em.add_field(name= "balance", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
+                    em.add_field(name= "balance/bal", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
                     em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
                     em.add_field(name= "work", value="10 mins cooldown", inline= False)
                     em.add_field(name= "beg", value="15 secs cooldown", inline= False)
@@ -2061,6 +2216,7 @@ async def get_help(ctx):
                     em.add_field(name= "give/gift/donate + @user/userid + (amount)", value= "to give somebody any amount of KR", inline= False)
                     em.add_field(name= "spin + (number of spin)", value="500 KR per spin", inline= False)
                     em.add_field(name= "use", value= "use a Nitro Basic ticket", inline= False)
+                    em.add_field(name= "sell", value= "to sell something in inventory", inline= False)
 
                     view = View()
                     view.add_item(button_back2)
@@ -2114,17 +2270,22 @@ async def get_help(ctx):
 
     async def button_callback(interaction):
         if interaction.user == ctx.author:
+            button1 = Button(label= "Work", style= discord.ButtonStyle.primary)
+            button2 = Button(label= "Beg / Search/ Rob", style= discord.ButtonStyle.primary)
+            button3 = Button(label= "Spin", style= discord.ButtonStyle.primary)
+            button4 = Button(label = "Sell price", style= discord.ButtonStyle.primary)
+            button_back = Button(label="go back", style= discord.ButtonStyle.primary)
 
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
                     em = discord.Embed(title = f"Work chance:", color = discord.Color.red())
                     em.add_field(name= "Random", value="500 - 1500")
                     view = View()
-                    view.add_item(button_back2)
+                    view.add_item(button_back)
                     await interaction.response.edit_message(embed = em, view = view)
                 else:
                     await interaction.response.send_message("You can not click this button !!", ephemeral=True)
-            button5.callback = button_callback
+            button1.callback = button_callback
             
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
@@ -2136,11 +2297,11 @@ async def get_help(ctx):
                     em.add_field(name= "101 - 150 kr", value="4,9%", inline= False)
                     em.add_field(name= "151 - 500 kr", value="0,1%", inline= False)
                     view = View()
-                    view.add_item(button_back2)
+                    view.add_item(button_back)
                     await interaction.response.edit_message(embed = em, view = view)
                 else:
                     await interaction.response.send_message("You can not click this button !!", ephemeral=True)
-            button6.callback = button_callback
+            button2.callback = button_callback
 
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
@@ -2153,30 +2314,47 @@ async def get_help(ctx):
                     em.add_field(name= "Unobtainable item", value="0,09%", inline= False)
                     em.add_field(name= "Nitro Basic ticket", value="0,01%", inline= False)
                     view = View()
-                    view.add_item(button_back2)
+                    view.add_item(button_back)
                     await interaction.response.edit_message(embed = em, view = view)
                 else:
                     await interaction.response.send_message("You can not click this button !!", ephemeral=True)
-            button7.callback = button_callback
+            button3.callback = button_callback
+
+            async def button_callback(interaction):
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"Sell price:", color = discord.Color.red())
+                    em.add_field(name= "Rare", value="30")
+                    em.add_field(name= "Epic", value="100")
+                    em.add_field(name= "Legendary", value="1000")
+                    em.add_field(name= "Relic", value="5000")
+                    em.add_field(name= "Contraband", value="25000")
+                    em.add_field(name= "Unobtainable", value="100000")
+
+                    view = View()
+                    view.add_item(button_back)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button4.callback = button_callback
 
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
                     view = View()
                     view.add_item(button_back1)
-                    view.add_item(button5)
-                    view.add_item(button6)
-                    view.add_item(button7)
+                    view.add_item(button1)
+                    view.add_item(button2)
+                    view.add_item(button3)
                     em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
                     await interaction.response.edit_message(embed = em, view = view)
                 else:
                     await interaction.response.send_message("You can not click this button !!", ephemeral=True)
-            button_back2.callback = button_callback
+            button_back.callback = button_callback
 
             view = View()
             view.add_item(button_back1)
-            view.add_item(button5)
-            view.add_item(button6)
-            view.add_item(button7)
+            view.add_item(button1)
+            view.add_item(button2)
+            view.add_item(button3)
             em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
             await interaction.response.edit_message(embed = em, view = view)
         else:
