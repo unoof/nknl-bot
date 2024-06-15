@@ -41,6 +41,7 @@ async def wee(ctx: commands.Context):
     await client.tree.sync()
 
 @client.command()                                                           #write a msg to a channel
+@commands.has_role('King')
 async def msg(ctx, channel: discord.TextChannel, *, message):
     await channel.send(message)
 
@@ -237,6 +238,7 @@ async def collected_unob(user):                                             #for
         member[str(user.id)]["DOS Walker"] = 0
         member[str(user.id)]["DOS Belt"] = 0
         member[str(user.id)]["Devourer Of Souls"] = 0
+        member[str(user.id)]["secret prize"] = []
     with open("unob.json",'w') as f:                                        #json file for database
         json.dump(member, f)
     return True
@@ -367,165 +369,202 @@ async def inv(ctx, mention: discord.Member = None):
             Nitro_Basic_ticket = member[str(mention.id)]["Nitro Basic ticket"]
 
             async def button_callback(interaction):
-                Frostbite = collection[str(mention.id)]["Frostbite"]
-                Fagdfaust_IV = collection[str(mention.id)]["Fagdfaust IV"]
-                Coroller = collection[str(mention.id)]["Coroller"]
-                Vertigo = collection[str(mention.id)]["Vertigo"]
-                rgb = collection[str(mention.id)]["RGB"]
-                Disintegrator = collection[str(mention.id)]["Disintegrator"]
-                Anti_matter = collection[str(mention.id)]["Anti-matter"]
-                Scouts_Honor = collection[str(mention.id)]["Scouts Honor"]
-                Moonfeather = collection[str(mention.id)]["Moonfeather"]
-                Ghostie = collection[str(mention.id)]["Ghostie"]
+                if interaction.user == ctx.author:
+                    Frostbite = collection[str(mention.id)]["Frostbite"]
+                    Fagdfaust_IV = collection[str(mention.id)]["Fagdfaust IV"]
+                    Coroller = collection[str(mention.id)]["Coroller"]
+                    Vertigo = collection[str(mention.id)]["Vertigo"]
+                    rgb = collection[str(mention.id)]["RGB"]
+                    Disintegrator = collection[str(mention.id)]["Disintegrator"]
+                    Anti_matter = collection[str(mention.id)]["Anti-matter"]
+                    Scouts_Honor = collection[str(mention.id)]["Scouts Honor"]
+                    Moonfeather = collection[str(mention.id)]["Moonfeather"]
+                    Ghostie = collection[str(mention.id)]["Ghostie"]
 
-                em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Frostbite", value= Frostbite, inline= False)
-                em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
-                em.add_field(name= "Coroller", value= Coroller, inline= False)
-                em.add_field(name= "Vertigo", value= Vertigo, inline= False)
-                em.add_field(name= "RGB", value= rgb, inline= False)
-                em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
-                em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
-                em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
-                em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
-                em.add_field(name= "Ghostie", value= Ghostie, inline= False)
+                    em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Frostbite", value= Frostbite, inline= False)
+                    em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
+                    em.add_field(name= "Coroller", value= Coroller, inline= False)
+                    em.add_field(name= "Vertigo", value= Vertigo, inline= False)
+                    em.add_field(name= "RGB", value= rgb, inline= False)
+                    em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
+                    em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
+                    em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
+                    em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
+                    em.add_field(name= "Ghostie", value= Ghostie, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(next_button1)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(next_button1)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             button1.callback = button_callback
 
             async def button_callback(interaction):
-                Eternal_Frost = collection[str(mention.id)]["Eternal Frost"]
-                Keeper_Of_The_Deep = collection[str(mention.id)]["Keeper Of The Deep"]
-                Flying_Dutchman = collection[str(mention.id)]["Flying Dutchman"]
-                Assault_Drone = collection[str(mention.id)]["Assault Drone"]
-                Deep_Space = collection[str(mention.id)]["Deep Space"]
-                Mysterious_Orb = collection[str(mention.id)]["Mysterious Orb"]
-                Bruisegg = collection[str(mention.id)]["Bruisegg"]
-                zenith = collection[str(mention.id)]["ZENITH"]
-                Esper = collection[str(mention.id)]["Esper"]
-                Forbidden_Tome = collection[str(mention.id)]["Forbidden Tome"]
+                if interaction.user == ctx.author:
+                    Eternal_Frost = collection[str(mention.id)]["Eternal Frost"]
+                    Keeper_Of_The_Deep = collection[str(mention.id)]["Keeper Of The Deep"]
+                    Flying_Dutchman = collection[str(mention.id)]["Flying Dutchman"]
+                    Assault_Drone = collection[str(mention.id)]["Assault Drone"]
+                    Deep_Space = collection[str(mention.id)]["Deep Space"]
+                    Mysterious_Orb = collection[str(mention.id)]["Mysterious Orb"]
+                    Bruisegg = collection[str(mention.id)]["Bruisegg"]
+                    zenith = collection[str(mention.id)]["ZENITH"]
+                    Esper = collection[str(mention.id)]["Esper"]
+                    Forbidden_Tome = collection[str(mention.id)]["Forbidden Tome"]
 
-                em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
-                em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
-                em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
-                em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
-                em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
-                em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
-                em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
-                em.add_field(name= "ZENITH", value= zenith, inline= False)
-                em.add_field(name= "Esper", value= Esper, inline= False)
-                em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
+                    em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
+                    em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
+                    em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
+                    em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
+                    em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
+                    em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
+                    em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
+                    em.add_field(name= "ZENITH", value= zenith, inline= False)
+                    em.add_field(name= "Esper", value= Esper, inline= False)
+                    em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(previous_button1)
-                view.add_item(next_button2)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(previous_button1)
+                    view.add_item(next_button2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             next_button1.callback = button_callback
 
             async def button_callback(interaction):
-                Frostbite = collection[str(mention.id)]["Frostbite"]
-                Fagdfaust_IV = collection[str(mention.id)]["Fagdfaust IV"]
-                Coroller = collection[str(mention.id)]["Coroller"]
-                Vertigo = collection[str(mention.id)]["Vertigo"]
-                rgb = collection[str(mention.id)]["RGB"]
-                Disintegrator = collection[str(mention.id)]["Disintegrator"]
-                Anti_matter = collection[str(mention.id)]["Anti-matter"]
-                Scouts_Honor = collection[str(mention.id)]["Scouts Honor"]
-                Moonfeather = collection[str(mention.id)]["Moonfeather"]
-                Ghostie = collection[str(mention.id)]["Ghostie"]
+                if interaction.user == ctx.author:
+                    Frostbite = collection[str(mention.id)]["Frostbite"]
+                    Fagdfaust_IV = collection[str(mention.id)]["Fagdfaust IV"]
+                    Coroller = collection[str(mention.id)]["Coroller"]
+                    Vertigo = collection[str(mention.id)]["Vertigo"]
+                    rgb = collection[str(mention.id)]["RGB"]
+                    Disintegrator = collection[str(mention.id)]["Disintegrator"]
+                    Anti_matter = collection[str(mention.id)]["Anti-matter"]
+                    Scouts_Honor = collection[str(mention.id)]["Scouts Honor"]
+                    Moonfeather = collection[str(mention.id)]["Moonfeather"]
+                    Ghostie = collection[str(mention.id)]["Ghostie"]
 
-                em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Frostbite", value= Frostbite, inline= False)
-                em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
-                em.add_field(name= "Coroller", value= Coroller, inline= False)
-                em.add_field(name= "Vertigo", value= Vertigo, inline= False)
-                em.add_field(name= "RGB", value= rgb, inline= False)
-                em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
-                em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
-                em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
-                em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
-                em.add_field(name= "Ghostie", value= Ghostie, inline= False)
+                    em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Frostbite", value= Frostbite, inline= False)
+                    em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
+                    em.add_field(name= "Coroller", value= Coroller, inline= False)
+                    em.add_field(name= "Vertigo", value= Vertigo, inline= False)
+                    em.add_field(name= "RGB", value= rgb, inline= False)
+                    em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
+                    em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
+                    em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
+                    em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
+                    em.add_field(name= "Ghostie", value= Ghostie, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(next_button1)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(next_button1)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             previous_button1.callback = button_callback
 
             async def button_callback(interaction):
-                Esper1 = collection[str(mention.id)]["ESPER"]
-                Attack_Drone = collection[str(mention.id)]["Attack Drone"]
-                DOS_Armour = collection[str(mention.id)]["DOS Armour"]
-                Dos = collection[str(mention.id)]["DOS"]
-                DOS_Walker = collection[str(mention.id)]["DOS Walker"]
-                DOS_Belt = collection[str(mention.id)]["DOS Belt"]
-                Devourer_Of_Souls = collection[str(mention.id)]["Devourer Of Souls"]
+                if interaction.user == ctx.author:
+                    Esper1 = collection[str(mention.id)]["ESPER"]
+                    Attack_Drone = collection[str(mention.id)]["Attack Drone"]
+                    DOS_Armour = collection[str(mention.id)]["DOS Armour"]
+                    Dos = collection[str(mention.id)]["DOS"]
+                    DOS_Walker = collection[str(mention.id)]["DOS Walker"]
+                    DOS_Belt = collection[str(mention.id)]["DOS Belt"]
+                    Devourer_Of_Souls = collection[str(mention.id)]["Devourer Of Souls"]
+                    oof = collection[str(mention.id)]["secret prize"]
+                    length_of_oof = len(oof)
 
-                em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "ESPER", value= Esper1, inline= False)
-                em.add_field(name= "Attack Drone", value= Attack_Drone, inline= False)
-                em.add_field(name= "DOS Armour", value= DOS_Armour, inline= False)
-                em.add_field(name= "DOS", value= Dos, inline= False)
-                em.add_field(name= "DOS Walker", value= DOS_Walker, inline= False)
-                em.add_field(name= "DOS Belt", value= DOS_Belt, inline= False)
-                em.add_field(name= "Devourer Of Souls", value= Devourer_Of_Souls, inline= False)
+                    if length_of_oof < 1:
+                        em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
+                        em.add_field(name= "ESPER", value= Esper1, inline= False)
+                        em.add_field(name= "Attack Drone", value= Attack_Drone, inline= False)
+                        em.add_field(name= "DOS Armour", value= DOS_Armour, inline= False)
+                        em.add_field(name= "DOS", value= Dos, inline= False)
+                        em.add_field(name= "DOS Walker", value= DOS_Walker, inline= False)
+                        em.add_field(name= "DOS Belt", value= DOS_Belt, inline= False)
+                        em.add_field(name= "Devourer Of Souls", value= Devourer_Of_Souls, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(previous_button2)
-                await interaction.response.edit_message(embed = em, view = view)
+                        view = View()
+                        view.add_item(button_back1)
+                        view.add_item(previous_button2)
+                        await interaction.response.edit_message(embed = em, view = view)
+                    else:
+                        em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
+                        em.add_field(name= "ESPER", value= Esper1, inline= False)
+                        em.add_field(name= "Attack Drone", value= Attack_Drone, inline= False)
+                        em.add_field(name= "DOS Armour", value= DOS_Armour, inline= False)
+                        em.add_field(name= "DOS", value= Dos, inline= False)
+                        em.add_field(name= "DOS Walker", value= DOS_Walker, inline= False)
+                        em.add_field(name= "DOS Belt", value= DOS_Belt, inline= False)
+                        em.add_field(name= "Devourer Of Souls", value= Devourer_Of_Souls, inline= False)
+                        em.add_field(name= "Super useless item", value= oof, inline= False)
+
+                        view = View()
+                        view.add_item(button_back1)
+                        view.add_item(previous_button2)
+                        await interaction.response.edit_message(embed = em, view = view)
+
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             next_button2.callback = button_callback
 
             async def button_callback(interaction):
-                Eternal_Frost = collection[str(mention.id)]["Eternal Frost"]
-                Keeper_Of_The_Deep = collection[str(mention.id)]["Keeper Of The Deep"]
-                Flying_Dutchman = collection[str(mention.id)]["Flying Dutchman"]
-                Assault_Drone = collection[str(mention.id)]["Assault Drone"]
-                Deep_Space = collection[str(mention.id)]["Deep Space"]
-                Mysterious_Orb = collection[str(mention.id)]["Mysterious Orb"]
-                Bruisegg = collection[str(mention.id)]["Bruisegg"]
-                zenith = collection[str(mention.id)]["ZENITH"]
-                Esper = collection[str(mention.id)]["Esper"]
-                Forbidden_Tome = collection[str(mention.id)]["Forbidden Tome"]
+                if interaction.user == ctx.author:
+                    Eternal_Frost = collection[str(mention.id)]["Eternal Frost"]
+                    Keeper_Of_The_Deep = collection[str(mention.id)]["Keeper Of The Deep"]
+                    Flying_Dutchman = collection[str(mention.id)]["Flying Dutchman"]
+                    Assault_Drone = collection[str(mention.id)]["Assault Drone"]
+                    Deep_Space = collection[str(mention.id)]["Deep Space"]
+                    Mysterious_Orb = collection[str(mention.id)]["Mysterious Orb"]
+                    Bruisegg = collection[str(mention.id)]["Bruisegg"]
+                    zenith = collection[str(mention.id)]["ZENITH"]
+                    Esper = collection[str(mention.id)]["Esper"]
+                    Forbidden_Tome = collection[str(mention.id)]["Forbidden Tome"]
 
-                em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
-                em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
-                em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
-                em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
-                em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
-                em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
-                em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
-                em.add_field(name= "ZENITH", value= zenith, inline= False)
-                em.add_field(name= "Esper", value= Esper, inline= False)
-                em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
+                    em = discord.Embed(title= f"{mention}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
+                    em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
+                    em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
+                    em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
+                    em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
+                    em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
+                    em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
+                    em.add_field(name= "ZENITH", value= zenith, inline= False)
+                    em.add_field(name= "Esper", value= Esper, inline= False)
+                    em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(previous_button1)
-                view.add_item(next_button2)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(previous_button1)
+                    view.add_item(next_button2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             previous_button2.callback = button_callback
 
             async def button_callback(interaction):
-                em = discord.Embed(title = f"{mention}'s inventory", color = discord.Color.red())
-                em.add_field(name= "Rare", value = Rare, inline= False)
-                em.add_field(name= "Epic", value = Epic, inline= False)
-                em.add_field(name= "Legendary", value = Legendary, inline= False)
-                em.add_field(name= "Relic", value = Relic, inline= False)
-                em.add_field(name= "Contraband", value = Contraband, inline= False)
-                em.add_field(name= "Unobtainable", value = Unobtainable, inline= False)
-                em.add_field(name= "Nitro Basic ticket", value = Nitro_Basic_ticket, inline= False)
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"{mention}'s inventory", color = discord.Color.red())
+                    em.add_field(name= "Rare", value = Rare, inline= False)
+                    em.add_field(name= "Epic", value = Epic, inline= False)
+                    em.add_field(name= "Legendary", value = Legendary, inline= False)
+                    em.add_field(name= "Relic", value = Relic, inline= False)
+                    em.add_field(name= "Contraband", value = Contraband, inline= False)
+                    em.add_field(name= "Unobtainable", value = Unobtainable, inline= False)
+                    em.add_field(name= "Nitro Basic ticket", value = Nitro_Basic_ticket, inline= False)
 
-                view = View()
-                view.add_item(button1)
+                    view = View()
+                    view.add_item(button1)
 
-                await interaction.response.edit_message(embed = em, view = view)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             button_back1.callback = button_callback
 
             em = discord.Embed(title = f"{mention}'s inventory", color = discord.Color.red())
@@ -593,165 +632,183 @@ async def inv(ctx, mention: discord.Member = None):
             Nitro_Basic_ticket = member[str(user.id)]["Nitro Basic ticket"]
 
             async def button_callback(interaction):
-                Frostbite = collection[str(user.id)]["Frostbite"]
-                Fagdfaust_IV = collection[str(user.id)]["Fagdfaust IV"]
-                Coroller = collection[str(user.id)]["Coroller"]
-                Vertigo = collection[str(user.id)]["Vertigo"]
-                rgb = collection[str(user.id)]["RGB"]
-                Disintegrator = collection[str(user.id)]["Disintegrator"]
-                Anti_matter = collection[str(user.id)]["Anti-matter"]
-                Scouts_Honor = collection[str(user.id)]["Scouts Honor"]
-                Moonfeather = collection[str(user.id)]["Moonfeather"]
-                Ghostie = collection[str(user.id)]["Ghostie"]
+                if interaction.user == ctx.author:
+                    Frostbite = collection[str(user.id)]["Frostbite"]
+                    Fagdfaust_IV = collection[str(user.id)]["Fagdfaust IV"]
+                    Coroller = collection[str(user.id)]["Coroller"]
+                    Vertigo = collection[str(user.id)]["Vertigo"]
+                    rgb = collection[str(user.id)]["RGB"]
+                    Disintegrator = collection[str(user.id)]["Disintegrator"]
+                    Anti_matter = collection[str(user.id)]["Anti-matter"]
+                    Scouts_Honor = collection[str(user.id)]["Scouts Honor"]
+                    Moonfeather = collection[str(user.id)]["Moonfeather"]
+                    Ghostie = collection[str(user.id)]["Ghostie"]
 
-                em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Frostbite", value= Frostbite, inline= False)
-                em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
-                em.add_field(name= "Coroller", value= Coroller, inline= False)
-                em.add_field(name= "Vertigo", value= Vertigo, inline= False)
-                em.add_field(name= "RGB", value= rgb, inline= False)
-                em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
-                em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
-                em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
-                em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
-                em.add_field(name= "Ghostie", value= Ghostie, inline= False)
+                    em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Frostbite", value= Frostbite, inline= False)
+                    em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
+                    em.add_field(name= "Coroller", value= Coroller, inline= False)
+                    em.add_field(name= "Vertigo", value= Vertigo, inline= False)
+                    em.add_field(name= "RGB", value= rgb, inline= False)
+                    em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
+                    em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
+                    em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
+                    em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
+                    em.add_field(name= "Ghostie", value= Ghostie, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(next_button1)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(next_button1)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             button1.callback = button_callback
 
             async def button_callback(interaction):
-                Eternal_Frost = collection[str(user.id)]["Eternal Frost"]
-                Keeper_Of_The_Deep = collection[str(user.id)]["Keeper Of The Deep"]
-                Flying_Dutchman = collection[str(user.id)]["Flying Dutchman"]
-                Assault_Drone = collection[str(user.id)]["Assault Drone"]
-                Deep_Space = collection[str(user.id)]["Deep Space"]
-                Mysterious_Orb = collection[str(user.id)]["Mysterious Orb"]
-                Bruisegg = collection[str(user.id)]["Bruisegg"]
-                zenith = collection[str(user.id)]["ZENITH"]
-                Esper = collection[str(user.id)]["Esper"]
-                Forbidden_Tome = collection[str(user.id)]["Forbidden Tome"]
+                if interaction.user == ctx.author:
+                    Eternal_Frost = collection[str(user.id)]["Eternal Frost"]
+                    Keeper_Of_The_Deep = collection[str(user.id)]["Keeper Of The Deep"]
+                    Flying_Dutchman = collection[str(user.id)]["Flying Dutchman"]
+                    Assault_Drone = collection[str(user.id)]["Assault Drone"]
+                    Deep_Space = collection[str(user.id)]["Deep Space"]
+                    Mysterious_Orb = collection[str(user.id)]["Mysterious Orb"]
+                    Bruisegg = collection[str(user.id)]["Bruisegg"]
+                    zenith = collection[str(user.id)]["ZENITH"]
+                    Esper = collection[str(user.id)]["Esper"]
+                    Forbidden_Tome = collection[str(user.id)]["Forbidden Tome"]
 
-                em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
-                em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
-                em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
-                em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
-                em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
-                em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
-                em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
-                em.add_field(name= "ZENITH", value= zenith, inline= False)
-                em.add_field(name= "Esper", value= Esper, inline= False)
-                em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
+                    em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
+                    em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
+                    em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
+                    em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
+                    em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
+                    em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
+                    em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
+                    em.add_field(name= "ZENITH", value= zenith, inline= False)
+                    em.add_field(name= "Esper", value= Esper, inline= False)
+                    em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(previous_button1)
-                view.add_item(next_button2)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(previous_button1)
+                    view.add_item(next_button2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             next_button1.callback = button_callback
 
             async def button_callback(interaction):
-                Frostbite = collection[str(user.id)]["Frostbite"]
-                Fagdfaust_IV = collection[str(user.id)]["Fagdfaust IV"]
-                Coroller = collection[str(user.id)]["Coroller"]
-                Vertigo = collection[str(user.id)]["Vertigo"]
-                rgb = collection[str(user.id)]["RGB"]
-                Disintegrator = collection[str(user.id)]["Disintegrator"]
-                Anti_matter = collection[str(user.id)]["Anti-matter"]
-                Scouts_Honor = collection[str(user.id)]["Scouts Honor"]
-                Moonfeather = collection[str(user.id)]["Moonfeather"]
-                Ghostie = collection[str(user.id)]["Ghostie"]
+                if interaction.user == ctx.author:
+                    Frostbite = collection[str(user.id)]["Frostbite"]
+                    Fagdfaust_IV = collection[str(user.id)]["Fagdfaust IV"]
+                    Coroller = collection[str(user.id)]["Coroller"]
+                    Vertigo = collection[str(user.id)]["Vertigo"]
+                    rgb = collection[str(user.id)]["RGB"]
+                    Disintegrator = collection[str(user.id)]["Disintegrator"]
+                    Anti_matter = collection[str(user.id)]["Anti-matter"]
+                    Scouts_Honor = collection[str(user.id)]["Scouts Honor"]
+                    Moonfeather = collection[str(user.id)]["Moonfeather"]
+                    Ghostie = collection[str(user.id)]["Ghostie"]
 
-                em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Frostbite", value= Frostbite, inline= False)
-                em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
-                em.add_field(name= "Coroller", value= Coroller, inline= False)
-                em.add_field(name= "Vertigo", value= Vertigo, inline= False)
-                em.add_field(name= "RGB", value= rgb, inline= False)
-                em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
-                em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
-                em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
-                em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
-                em.add_field(name= "Ghostie", value= Ghostie)
+                    em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Frostbite", value= Frostbite, inline= False)
+                    em.add_field(name= "Fagdfaust IV", value= Fagdfaust_IV, inline= False)
+                    em.add_field(name= "Coroller", value= Coroller, inline= False)
+                    em.add_field(name= "Vertigo", value= Vertigo, inline= False)
+                    em.add_field(name= "RGB", value= rgb, inline= False)
+                    em.add_field(name= "Disintegrator", value= Disintegrator, inline= False)
+                    em.add_field(name= "Anti-matter", value= Anti_matter, inline= False)
+                    em.add_field(name= "Scouts Honor", value= Scouts_Honor, inline= False)
+                    em.add_field(name= "Moonfeather", value= Moonfeather, inline= False)
+                    em.add_field(name= "Ghostie", value= Ghostie, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(next_button1)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(next_button1)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             previous_button1.callback = button_callback
 
             async def button_callback(interaction):
-                Esper1 = collection[str(user.id)]["ESPER"]
-                Attack_Drone = collection[str(user.id)]["Attack Drone"]
-                DOS_Armour = collection[str(user.id)]["DOS Armour"]
-                Dos = collection[str(user.id)]["DOS"]
-                DOS_Walker = collection[str(user.id)]["DOS Walker"]
-                DOS_Belt = collection[str(user.id)]["DOS Belt"]
-                Devourer_Of_Souls = collection[str(user.id)]["Devourer Of Souls"]
+                if interaction.user == ctx.author:
+                    Esper1 = collection[str(user.id)]["ESPER"]
+                    Attack_Drone = collection[str(user.id)]["Attack Drone"]
+                    DOS_Armour = collection[str(user.id)]["DOS Armour"]
+                    Dos = collection[str(user.id)]["DOS"]
+                    DOS_Walker = collection[str(user.id)]["DOS Walker"]
+                    DOS_Belt = collection[str(user.id)]["DOS Belt"]
+                    Devourer_Of_Souls = collection[str(user.id)]["Devourer Of Souls"]
 
-                em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "ESPER", value= Esper1, inline= False)
-                em.add_field(name= "Attack Drone", value= Attack_Drone, inline= False)
-                em.add_field(name= "DOS Armour", value= DOS_Armour, inline= False)
-                em.add_field(name= "DOS", value= Dos, inline= False)
-                em.add_field(name= "DOS Walker", value= DOS_Walker, inline= False)
-                em.add_field(name= "DOS Belt", value= DOS_Belt, inline= False)
-                em.add_field(name= "Devourer Of Souls", value= Devourer_Of_Souls, inline= False)
+                    em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "ESPER", value= Esper1, inline= False)
+                    em.add_field(name= "Attack Drone", value= Attack_Drone, inline= False)
+                    em.add_field(name= "DOS Armour", value= DOS_Armour, inline= False)
+                    em.add_field(name= "DOS", value= Dos, inline= False)
+                    em.add_field(name= "DOS Walker", value= DOS_Walker, inline= False)
+                    em.add_field(name= "DOS Belt", value= DOS_Belt, inline= False)
+                    em.add_field(name= "Devourer Of Souls", value= Devourer_Of_Souls, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(previous_button2)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(previous_button2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             next_button2.callback = button_callback
 
             async def button_callback(interaction):
-                Eternal_Frost = collection[str(user.id)]["Eternal Frost"]
-                Keeper_Of_The_Deep = collection[str(user.id)]["Keeper Of The Deep"]
-                Flying_Dutchman = collection[str(user.id)]["Flying Dutchman"]
-                Assault_Drone = collection[str(user.id)]["Assault Drone"]
-                Deep_Space = collection[str(user.id)]["Deep Space"]
-                Mysterious_Orb = collection[str(user.id)]["Mysterious Orb"]
-                Bruisegg = collection[str(user.id)]["Bruisegg"]
-                zenith = collection[str(user.id)]["ZENITH"]
-                Esper = collection[str(user.id)]["Esper"]
-                Forbidden_Tome = collection[str(user.id)]["Forbidden Tome"]
+                if interaction.user == ctx.author:
+                    Eternal_Frost = collection[str(user.id)]["Eternal Frost"]
+                    Keeper_Of_The_Deep = collection[str(user.id)]["Keeper Of The Deep"]
+                    Flying_Dutchman = collection[str(user.id)]["Flying Dutchman"]
+                    Assault_Drone = collection[str(user.id)]["Assault Drone"]
+                    Deep_Space = collection[str(user.id)]["Deep Space"]
+                    Mysterious_Orb = collection[str(user.id)]["Mysterious Orb"]
+                    Bruisegg = collection[str(user.id)]["Bruisegg"]
+                    zenith = collection[str(user.id)]["ZENITH"]
+                    Esper = collection[str(user.id)]["Esper"]
+                    Forbidden_Tome = collection[str(user.id)]["Forbidden Tome"]
 
-                em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
-                em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
-                em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
-                em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
-                em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
-                em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
-                em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
-                em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
-                em.add_field(name= "ZENITH", value= zenith, inline= False)
-                em.add_field(name= "Esper", value= Esper, inline= False)
-                em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
+                    em = discord.Embed(title= f"{ctx.author.name}'s unobtainable collection:", color= discord.Color.red())
+                    em.add_field(name= "Eternal Frost", value= Eternal_Frost, inline= False)
+                    em.add_field(name= "Keeper Of The Deep", value= Keeper_Of_The_Deep, inline= False)
+                    em.add_field(name= "Flying Dutchman", value= Flying_Dutchman, inline= False)
+                    em.add_field(name= "Assault Drone", value= Assault_Drone, inline= False)
+                    em.add_field(name= "Deep Space", value= Deep_Space, inline= False)
+                    em.add_field(name= "Mysterious Orb", value= Mysterious_Orb, inline= False)
+                    em.add_field(name= "Bruisegg", value= Bruisegg, inline= False)
+                    em.add_field(name= "ZENITH", value= zenith, inline= False)
+                    em.add_field(name= "Esper", value= Esper, inline= False)
+                    em.add_field(name= "Forbidden Tome", value= Forbidden_Tome, inline= False)
 
-                view = View()
-                view.add_item(button_back1)
-                view.add_item(previous_button1)
-                view.add_item(next_button2)
-                await interaction.response.edit_message(embed = em, view = view)
+                    view = View()
+                    view.add_item(button_back1)
+                    view.add_item(previous_button1)
+                    view.add_item(next_button2)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             previous_button2.callback = button_callback
 
             async def button_callback(interaction):
-                em = discord.Embed(title = f"{ctx.author.name}'s inventory", color = discord.Color.red())
-                em.add_field(name= "Rare", value = Rare)
-                em.add_field(name= "Epic", value = Epic)
-                em.add_field(name= "Legendary", value = Legendary)
-                em.add_field(name= "Relic", value = Relic)
-                em.add_field(name= "Contraband", value = Contraband)
-                em.add_field(name= "Unobtainable", value = Unobtainable)
-                em.add_field(name= "Nitro Basic ticket", value = Nitro_Basic_ticket)
+                if interaction.user == ctx.author:
+                    em = discord.Embed(title = f"{ctx.author.name}'s inventory", color = discord.Color.red())
+                    em.add_field(name= "Rare", value = Rare, inline= False)
+                    em.add_field(name= "Epic", value = Epic, inline= False)
+                    em.add_field(name= "Legendary", value = Legendary, inline= False)
+                    em.add_field(name= "Relic", value = Relic, inline= False)
+                    em.add_field(name= "Contraband", value = Contraband, inline= False)
+                    em.add_field(name= "Unobtainable", value = Unobtainable, inline= False)
+                    em.add_field(name= "Nitro Basic ticket", value = Nitro_Basic_ticket, inline= False)
 
-                view = View()
-                view.add_item(button1)
+                    view = View()
+                    view.add_item(button1)
 
-                await interaction.response.edit_message(embed = em, view = view)
+                    await interaction.response.edit_message(embed = em, view = view)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
             button_back1.callback = button_callback
 
             em = discord.Embed(title = f"{ctx.author.name}'s inventory", color = discord.Color.red())
@@ -790,15 +847,16 @@ async def sell(ctx, number_of_sell: int = 1):
         button4 = Button(label= "Relic", style= discord.ButtonStyle.primary)
         button5 = Button(label= "Contraband", style= discord.ButtonStyle.primary)
         button6 = Button(label= "Unobtainable", style= discord.ButtonStyle.primary)
+        button7 = Button(label= "Nitro Basic ticket", style= discord.ButtonStyle.primary)
 
         async def button_callback(interaction):
             inv = member[str(user.id)]["Rare"]
             if interaction.user == ctx.author:
                 if inv >= number_of_sell:
-                    em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Rare items", color = discord.Color.red())
+                    em = discord.Embed(title = f"You successful quick sell {number_of_sell} Rare items: {number_of_sell*3} KR", color = discord.Color.red())
                     await interaction.response.edit_message(embed = em, view = None)
 
-                    users[str(user.id)]["KR"] += number_of_sell*30
+                    users[str(user.id)]["KR"] += number_of_sell*3
                     with open("bank.json",'w') as f:
                         json.dump(users,f)
 
@@ -816,10 +874,10 @@ async def sell(ctx, number_of_sell: int = 1):
             if interaction.user == ctx.author:
                 inv = member[str(user.id)]["Epic"]
                 if inv >= number_of_sell:
-                    em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Epic items", color = discord.Color.red())
+                    em = discord.Embed(title = f"You successful quick sell {number_of_sell} Epic items: {number_of_sell*10} KR", color = discord.Color.red())
                     await interaction.response.edit_message(embed = em, view = None)
 
-                    users[str(user.id)]["KR"] += number_of_sell*100
+                    users[str(user.id)]["KR"] += number_of_sell*10
                     with open("bank.json",'w') as f:
                         json.dump(users,f)
 
@@ -836,10 +894,10 @@ async def sell(ctx, number_of_sell: int = 1):
         async def button_callback(interaction):
             inv = member[str(user.id)]["Legendary"]
             if inv >= number_of_sell:
-                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Legendary items", color = discord.Color.red())
+                em = discord.Embed(title = f"You successful quick sell {number_of_sell} Legendary items: {number_of_sell*100} KR", color = discord.Color.red())
                 await interaction.response.edit_message(embed = em, view = None)
 
-                users[str(user.id)]["KR"] += number_of_sell*1000
+                users[str(user.id)]["KR"] += number_of_sell*100
                 with open("bank.json",'w') as f:
                     json.dump(users,f)
 
@@ -854,10 +912,10 @@ async def sell(ctx, number_of_sell: int = 1):
         async def button_callback(interaction):
             inv = member[str(user.id)]["Relic"]
             if inv >= number_of_sell:
-                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Relic items", color = discord.Color.red())
+                em = discord.Embed(title = f"You successful quick sell {number_of_sell} Relic items: {number_of_sell*1000} KR", color = discord.Color.red())
                 await interaction.response.edit_message(embed = em, view = None)
 
-                users[str(user.id)]["KR"] += number_of_sell*5000
+                users[str(user.id)]["KR"] += number_of_sell*1000
                 with open("bank.json",'w') as f:
                     json.dump(users,f)
 
@@ -872,10 +930,10 @@ async def sell(ctx, number_of_sell: int = 1):
         async def button_callback(interaction):
             inv = member[str(user.id)]["Contraband"]
             if inv >= number_of_sell:
-                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Contraband items", color = discord.Color.red())
+                em = discord.Embed(title = f"You successful quick sell {number_of_sell} Contraband items: {number_of_sell*5000} KR", color = discord.Color.red())
                 await interaction.response.edit_message(embed = em, view = None)
 
-                users[str(user.id)]["KR"] += number_of_sell*25000
+                users[str(user.id)]["KR"] += number_of_sell*5000
                 with open("bank.json",'w') as f:
                     json.dump(users,f)
 
@@ -890,10 +948,10 @@ async def sell(ctx, number_of_sell: int = 1):
         async def button_callback(interaction):
             inv = member[str(user.id)]["Unobtainable"]
             if inv >= number_of_sell:
-                em = discord.Embed(title = f"You do successful quick sell {number_of_sell} Unobtainable items", color = discord.Color.red())
+                em = discord.Embed(title = f"You successful quick sell {number_of_sell} Unobtainable items: {number_of_sell*50000} KR", color = discord.Color.red())
                 await interaction.response.edit_message(embed = em, view = None)
 
-                users[str(user.id)]["KR"] += number_of_sell*100000
+                users[str(user.id)]["KR"] += number_of_sell*50000
                 with open("bank.json",'w') as f:
                     json.dump(users,f)
 
@@ -905,6 +963,24 @@ async def sell(ctx, number_of_sell: int = 1):
                 await interaction.response.edit_message(embed = em, view = None)
         button6.callback = button_callback
 
+        async def button_callback(interaction):
+            inv = member[str(user.id)]["Nitro Basic ticket"]
+            if inv >= number_of_sell:
+                em = discord.Embed(title = f"You successful quick sell {number_of_sell} Nitro Basic ticket: {number_of_sell*2500000} KR", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                users[str(user.id)]["KR"] += number_of_sell*2500000
+                with open("bank.json",'w') as f:
+                    json.dump(users,f)
+
+                member[str(user.id)]["Nitro Basic ticket"] -= number_of_sell
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                em = discord.Embed(title = f"You do not have enough items to sell !!", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+        button7.callback = button_callback
+
         view = View()
         view.add_item(button1)
         view.add_item(button2)
@@ -912,6 +988,7 @@ async def sell(ctx, number_of_sell: int = 1):
         view.add_item(button4)
         view.add_item(button5)
         view.add_item(button6)
+        view.add_item(button7)
         em = discord.Embed(title = f"Choose which items you want to sell {number_of_sell} items:", color = discord.Color.red())
         await ctx.send(embed = em, view = view)
 
@@ -1575,6 +1652,8 @@ async def spin(ctx, x= 1):
     
     await open_inv(ctx.author)
 
+    await collected_unob(ctx.author)
+
     bal = await update_bank(ctx.author)
 
     if x == 1:
@@ -1585,21 +1664,30 @@ async def spin(ctx, x= 1):
 
             users = await get_bank_data()
 
+            hidden = await get_unob_data()
+
             user = ctx.author
         
             users[str(user.id)]["KR"] += -500
             with open("bank.json",'w') as f:
                 json.dump(users,f)
 
-            i = random.randint(1, 10000)
+            i = random.randint(1, 100000)
             if i == 1:
+                await ctx.send("<a:spin:1243478409930080342> Congratulation, you won a **oof**, what a waste of KR fr")
+
+                hidden[str(user.id)]["secret prize"].append("oof")
+                with open("unob.json",'w') as f:
+                    json.dump(hidden,f)
+
+            elif 2 <= i <= 5:
                 await ctx.send("<a:spin:1243478409930080342> Congratulation, you won the jackpot prize: a basic nitro ticket")
 
                 member[str(user.id)]["Nitro Basic ticket"] += 1
                 with open("inventory.json",'w') as f:
                     json.dump(member,f)
                     
-            elif 2 <= i <= 10:
+            elif 5 <= i <= 100:
                 await open_inv(ctx.author)
                 member = await get_inv_data()
 
@@ -1729,25 +1817,25 @@ async def spin(ctx, x= 1):
                     with open("unob.json", 'w') as f:
                         json.dump(add_item,f)
 
-            elif 11 <= i <= 60:
+            elif 101 <= i <= 600:
                 await ctx.send("<a:spin:1243478409930080342> Congrats you spun out a contraband ")
 
                 member[str(user.id)]["Contraband"] += 1
                 with open("inventory.json",'w') as f:
                     json.dump(member,f)
-            elif 61 <= i <= 300:
+            elif 601 <= i <= 3000:
                 await ctx.send("<a:spin:1243478409930080342> Congrats on a random relic item")
 
                 member[str(user.id)]["Relic"] += 1
                 with open("inventory.json",'w') as f:
                     json.dump(member,f)
-            elif 301 <= i <= 1700:
+            elif 3001 <= i <= 17000:
                 await ctx.send("<a:spin:1243478409930080342> You just wasted your time for a stupid legendary item")
     
                 member[str(user.id)]["Legendary"] += 1
                 with open("inventory.json",'w') as f:
                     json.dump(member,f)
-            elif 1701 <= i <= 5200:
+            elif 17001 <= i <= 52000:
                 await ctx.send("<a:spin:1243478409930080342> You spun some useless epic item")
     
                 member[str(user.id)]["Epic"] += 1
@@ -1780,6 +1868,8 @@ async def spin(ctx, x= 1):
 
             users = await get_bank_data()
 
+            hidden = await get_unob_data()
+
             user = ctx.author
 
             users[str(user.id)]["KR"] -= 500*x
@@ -1789,15 +1879,21 @@ async def spin(ctx, x= 1):
             index = 0
 
             while index < x:
-                i = random.randint(1, 10000)
+                i = random.randint(1, 100000)
                 if i == 1:
+                    hidden[str(user.id)]["secret prize"].append("oof")
+                    with open("unob.json",'w') as f:
+                        json.dump(hidden,f)
+                    rewards.append("**oof**")
+
+                elif  2 <= i <= 5:
                     member[str(user.id)]["Nitro Basic ticket"] += 1
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
 
                     rewards.append("**Nitro Basic ticket**")
 
-                elif 2 <= i <= 10:
+                elif 5 <= i <= 100:
                     await open_inv(ctx.author)
                     member = await get_inv_data()
 
@@ -1955,28 +2051,28 @@ async def spin(ctx, x= 1):
                         with open("unob.json", 'w') as f:
                             json.dump(add_item,f)
 
-                elif 11 <= i <= 60:
+                elif 101 <= i <= 600:
                     member[str(user.id)]["Contraband"] += 1
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
 
                     rewards.append("Contraband")
 
-                elif 61 <= i <= 300:
+                elif 601 <= i <= 3000:
                     member[str(user.id)]["Relic"] += 1
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
 
                     rewards.append("Relic")
 
-                elif 301 <= i <= 1700:
+                elif 3001 <= i <= 17000:
                     member[str(user.id)]["Legendary"] += 1
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
 
                     rewards.append("Legendary")
 
-                elif 1701 <= i <= 5200:
+                elif 17001 <= i <= 52000:
                     member[str(user.id)]["Epic"] += 1
                     with open("inventory.json",'w') as f:
                         json.dump(member,f)
@@ -1999,12 +2095,14 @@ async def spin(ctx, x= 1):
             legend = 0
             relic = 0
             contra = 0
+            prize = 0
 
             rare_items = 0
             epic_items = 0
             legend_items = 0
             relic_items = 0
             contra_items = 0
+            prize_items = 0
 
             for items in rewards:
                 if items == "Rare":
@@ -2017,6 +2115,9 @@ async def spin(ctx, x= 1):
                     relic += 1
                 elif items == "Contraband":
                     contra += 1
+                elif items == "**oof**":
+                    prize += 1
+
             while rare_items < rare:
                 rewards.remove("Rare")
                 if rare_items == rare:
@@ -2042,7 +2143,21 @@ async def spin(ctx, x= 1):
                 if contra_items == contra:
                     break
                 contra_items += 1
-            await ctx.send(f"<a:spin:1243478409930080342> {ctx.author.name} spun out: Rare = {rare}, Epic = {epic}, Legendary = {legend}, Relic = {relic}, Contraband = {contra}, other: {rewards}")
+            while prize_items < prize:
+                rewards.remove("**oof**")
+                if prize_items == prize:
+                    break
+                prize_items += 1
+
+            length_of_other = len(rewards)
+            if length_of_other > 1:
+                await ctx.send(f"<a:spin:1243478409930080342> {ctx.author.name} spun out: Rare = {rare}, Epic = {epic}, Legendary = {legend}, Relic = {relic}, Contraband = {contra}, other: {rewards}")
+                if prize >= 1:
+                    await ctx.send(f"you also get {prize} **oof**, what a useless item, waste of KR fr")
+            else:
+                await ctx.send(f"<a:spin:1243478409930080342> {ctx.author.name} spun out: Rare = {rare}, Epic = {epic}, Legendary = {legend}, Relic = {relic}, Contraband = {contra}")
+                if prize >= 1:
+                    await ctx.send(f"you also get {prize} **oof**, what a useless item, waste of KR fr")
 
 @client.command()
 async def use(ctx):
@@ -2061,7 +2176,7 @@ async def use(ctx):
             json.dump(member,f)
         await ctx.send(f"{ctx.author.name} use the Nitro Basic ticket, capture this message as a proof and DM PTJ for prize")
 
-@client.command(aliases=['gift', 'donate'])
+@client.command(aliases=['donate'])
 async def give(ctx,mention: discord.Member, amount :int = None):
     if mention != ctx.author:
         if amount != None:
@@ -2093,6 +2208,195 @@ async def give(ctx,mention: discord.Member, amount :int = None):
         await ctx.send("You cant give yourself KR !!")
 
 @client.command()
+async def gift(ctx, mention:discord.Member, amount: int = 1):
+    if mention != ctx.author:
+        await open_inv(ctx.author)
+        await open_inv(mention)
+
+        if amount <= 0:
+            await ctx.send("Invalid number of item !!")
+
+        else:
+            member = await get_inv_data()
+
+            user = ctx.author
+
+            button1 = Button(label= "Rare", style= discord.ButtonStyle.primary)
+            button2 = Button(label= "Epic", style= discord.ButtonStyle.primary)
+            button3 = Button(label= "Legendary", style= discord.ButtonStyle.primary)
+            button4 = Button(label= "Relic", style= discord.ButtonStyle.primary)
+            button5 = Button(label= "Contraband", style= discord.ButtonStyle.primary)
+            button6 = Button(label= "Unobtainable", style= discord.ButtonStyle.primary)
+            button7 = Button(label= "Nitro Basic ticket", style= discord.ButtonStyle.primary)
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Rare"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Rare items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Rare"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Rare"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button1.callback = button_callback
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Epic"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Epic items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Epic"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Epic"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button2.callback = button_callback
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Legendary"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Legendary items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Legendary"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Legendary"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button3.callback = button_callback
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Relic"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Relic items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Relic"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Relic"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button4.callback = button_callback
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Contraband"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Contraband items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Contraband"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Contraband"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button5.callback = button_callback
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Unobtainable"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Unobtainable items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Unobtainable"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Unobtainable"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button6.callback = button_callback
+
+            async def button_callback(interaction):
+                gift = member[str(user.id)]["Nitro Basic ticket"]
+
+                if interaction.user == ctx.author:
+                    if gift >= amount:
+                        em = discord.Embed(title = f"You successful gift {amount} Nitro Basic ticket items to {mention}", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+
+                        member[str(user.id)]["Nitro Basic ticket"] -= amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+
+                        member[str(mention.id)]["Nitro Basic ticket"] += amount
+                        with open("inventory.json",'w') as f:
+                            json.dump(member,f)
+                    else:
+                        em = discord.Embed(title = f"You do not have enough items to gift !!", color = discord.Color.red())
+                        await interaction.response.edit_message(embed = em, view = None)
+                else:
+                    await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+            button7.callback = button_callback
+
+            view = View()
+            view.add_item(button1)
+            view.add_item(button2)
+            view.add_item(button3)
+            view.add_item(button4)
+            view.add_item(button5)
+            view.add_item(button6)
+            view.add_item(button7)
+            em = discord.Embed(title = f"Choose which items you want to gift to {mention}: {amount} items", color = discord.Color.red())
+            await ctx.send(embed = em, view = view)
+    else:
+        await ctx.send("You cant give yourself items !!")
+
+@client.command()
 @commands.has_role('*')
 async def add(ctx, mention: discord.Member, amount: int = None):
     if amount != None:
@@ -2110,6 +2414,312 @@ async def add(ctx, mention: discord.Member, amount: int = None):
             await ctx.send(f"Add {amount} KR to {mention}'s balance")
     else:
         await ctx.send("Please enter the KR you want to add !!")
+
+@client.command()
+@commands.has_role('*')
+async def spawn(ctx, mention:discord.Member, amount: int = 1):
+    await open_inv(ctx.author)
+    await open_inv(mention)
+
+    if amount <= 0:
+        await ctx.send("Invalid number of item !!")
+
+    else:
+        member = await get_inv_data()
+
+        button1 = Button(label= "Rare", style= discord.ButtonStyle.primary)
+        button2 = Button(label= "Epic", style= discord.ButtonStyle.primary)
+        button3 = Button(label= "Legendary", style= discord.ButtonStyle.primary)
+        button4 = Button(label= "Relic", style= discord.ButtonStyle.primary)
+        button5 = Button(label= "Contraband", style= discord.ButtonStyle.primary)
+        button6 = Button(label= "Unobtainable", style= discord.ButtonStyle.primary)
+        button7 = Button(label= "Nitro Basic ticket", style= discord.ButtonStyle.primary)
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Rare items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Rare"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button1.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Epic items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Epic"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button2.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Legendary items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Legendary"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button3.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Relic items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Relic"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button4.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Contraband items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Contraband"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button5.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Unobtainable items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Unobtainable"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button6.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                em = discord.Embed(title = f"You successful add {amount} Nitro Basic ticket items to {mention} inventory", color = discord.Color.red())
+                await interaction.response.edit_message(embed = em, view = None)
+
+                member[str(mention.id)]["Nitro Basic ticket"] += amount
+                with open("inventory.json",'w') as f:
+                    json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button7.callback = button_callback
+
+        view = View()
+        view.add_item(button1)
+        view.add_item(button2)
+        view.add_item(button3)
+        view.add_item(button4)
+        view.add_item(button5)
+        view.add_item(button6)
+        view.add_item(button7)
+        em = discord.Embed(title = f"Choose which items you want to add to {mention} inventory: {amount} items", color = discord.Color.red())
+        await ctx.send(embed = em, view = view)
+
+@client.command()
+@commands.has_role('*')
+async def remove_item(ctx, mention:discord.Member, amount: int = 1):
+    await open_inv(mention)
+
+    if amount <= 0:
+        await ctx.send("Invalid number of item !!")
+
+    else:
+        member = await get_inv_data()
+
+        button1 = Button(label= "Rare", style= discord.ButtonStyle.primary)
+        button2 = Button(label= "Epic", style= discord.ButtonStyle.primary)
+        button3 = Button(label= "Legendary", style= discord.ButtonStyle.primary)
+        button4 = Button(label= "Relic", style= discord.ButtonStyle.primary)
+        button5 = Button(label= "Contraband", style= discord.ButtonStyle.primary)
+        button6 = Button(label= "Unobtainable", style= discord.ButtonStyle.primary)
+        button7 = Button(label= "Nitro Basic ticket", style= discord.ButtonStyle.primary)
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Rare"]
+
+                if inv > amount:
+                    em = discord.Embed(title = f"You successful remove {amount} Rare items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Rare"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Rare items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Rare"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button1.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Epic"]
+
+                if inv > amount:
+                    em = discord.Embed(title = f"You successful remove {amount} Epic items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Epic"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Epic items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Epic"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button2.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Legendary"]
+
+                if inv > amount:
+
+                    em = discord.Embed(title = f"You successful remove {amount} Legendary items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Legendary"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Legendary items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Legendary"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button3.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Relic"]
+
+                if inv > amount:
+                    em = discord.Embed(title = f"You successful remove {amount} Relic items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Relic"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Relic items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Relic"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button4.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Contraband"]
+
+                if inv > amount:
+                    em = discord.Embed(title = f"You successful remove {amount} Contraband items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Contraband"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Contraband items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Contraband"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button5.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Unobtainable"]
+
+                if inv > amount:
+                    em = discord.Embed(title = f"You successful remove {amount} Unobtainable items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Unobtainable"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Unobtainable items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Unobtainable"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button6.callback = button_callback
+
+        async def button_callback(interaction):
+            if interaction.user == ctx.author:
+                inv = member[str(mention.id)]["Nitro Basic ticket"]
+
+                if inv > amount:
+                    em = discord.Embed(title = f"You successful remove {amount} Nitro Basic ticket items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Nitro Basic ticket"] -= amount
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+                else:
+                    em = discord.Embed(title = f"You successful remove all Nitro Basic ticket items in {mention} inventory", color = discord.Color.red())
+                    await interaction.response.edit_message(embed = em, view = None)
+
+                    member[str(mention.id)]["Nitro Basic ticket"] -= inv
+                    with open("inventory.json",'w') as f:
+                        json.dump(member,f)
+
+            else:
+                await interaction.response.send_message("You can not click this button !!", ephemeral=True)
+        button7.callback = button_callback
+
+        view = View()
+        view.add_item(button1)
+        view.add_item(button2)
+        view.add_item(button3)
+        view.add_item(button4)
+        view.add_item(button5)
+        view.add_item(button6)
+        view.add_item(button7)
+        em = discord.Embed(title = f"Choose which items you want to remove from {mention}: {amount} items", color = discord.Color.red())
+        await ctx.send(embed = em, view = view)
 
 @client.command()
 @commands.has_role('*')
@@ -2169,8 +2779,8 @@ async def lb(ctx):
     await ctx.send(embed = em)
     await client.tree.sync()
 
-@client.command()
-async def get_help(ctx):
+@client.hybrid_command(aliases=['get_help'])
+async def help(ctx):
     button1 = Button(label= "Commands", style= discord.ButtonStyle.primary)
     button2 = Button(label= "Chances / sell prices", style= discord.ButtonStyle.primary)
     button3 = Button(label= "Source", style= discord.ButtonStyle.primary, url= "https://github.com/unoof/nknl-bot")
@@ -2216,7 +2826,8 @@ async def get_help(ctx):
                     em.add_field(name= "give/gift/donate + @user/userid + (amount)", value= "to give somebody any amount of KR", inline= False)
                     em.add_field(name= "spin + (number of spin)", value="500 KR per spin", inline= False)
                     em.add_field(name= "use", value= "use a Nitro Basic ticket", inline= False)
-                    em.add_field(name= "sell", value= "to sell something in inventory", inline= False)
+                    em.add_field(name= "sell + (amount)", value= "to sell something in inventory", inline= False)
+                    em.add_field(name= "gift + @user/userid + (amount)", value= "to gift something in inventory to someone", inline= False)
 
                     view = View()
                     view.add_item(button_back2)
@@ -2228,7 +2839,10 @@ async def get_help(ctx):
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
                     em = discord.Embed(title = f"All mod only command:", color = discord.Color.red())
+                    em.add_field(name= "msg + #channel + (message you want)", value= "To send message to a specific channel", inline= False)
                     em.add_field(name= "add + @user/userid + (amount of kr)", value= "To add some kr to other balance  (only high mod can use this)", inline= False)
+                    em.add_field(name= "spawn + @user/userid + (amount of items)", value= "To add some items in other inventory  (only high mod can use this)", inline= False)
+                    em.add_field(name= "remove_item + @user/userid + (amount of items)", value= "To remove some items in other inventory  (only high mod can use this)", inline= False)
                     em.add_field(name= "remove_KR + @user/userid + (number)", value= "To remove an amount of kr  (only high mod can use this)")
                     em.add_field(name= "warning", value= "Leave blank to check your self or @user/user_id to get someone else warning", inline= False)
                     em.add_field(name= "warn + @user/userid + (reason)", value= "Use to warn people", inline= False)
@@ -2311,8 +2925,10 @@ async def get_help(ctx):
                     em.add_field(name= "Legendary item", value="14%", inline= False)
                     em.add_field(name= "Relic item", value="2,4%", inline= False)
                     em.add_field(name= "Contraband item", value="0,5%", inline= False)
-                    em.add_field(name= "Unobtainable item", value="0,09%", inline= False)
-                    em.add_field(name= "Nitro Basic ticket", value="0,01%", inline= False)
+                    em.add_field(name= "Unobtainable item", value="0,095%", inline= False)
+                    em.add_field(name= "Nitro Basic ticket", value="0,004%", inline= False)
+                    em.add_field(name= "smth else idk", value="0,001%", inline= False)
+
                     view = View()
                     view.add_item(button_back)
                     await interaction.response.edit_message(embed = em, view = view)
@@ -2323,12 +2939,13 @@ async def get_help(ctx):
             async def button_callback(interaction):
                 if interaction.user == ctx.author:
                     em = discord.Embed(title = f"Sell price:", color = discord.Color.red())
-                    em.add_field(name= "Rare", value="30")
-                    em.add_field(name= "Epic", value="100")
-                    em.add_field(name= "Legendary", value="1000")
-                    em.add_field(name= "Relic", value="5000")
-                    em.add_field(name= "Contraband", value="25000")
-                    em.add_field(name= "Unobtainable", value="100000")
+                    em.add_field(name= "Rare", value="3", inline= False)
+                    em.add_field(name= "Epic", value="10", inline= False)
+                    em.add_field(name= "Legendary", value="100", inline= False)
+                    em.add_field(name= "Relic", value="5000", inline= False)
+                    em.add_field(name= "Contraband", value="10000", inline= False)
+                    em.add_field(name= "Unobtainable", value="50000", inline= False)
+                    em.add_field(name= "Nitro Basic ticket", value="2500000", inline= False)
 
                     view = View()
                     view.add_item(button_back)
@@ -2344,6 +2961,7 @@ async def get_help(ctx):
                     view.add_item(button1)
                     view.add_item(button2)
                     view.add_item(button3)
+                    view.add_item(button4)
                     em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
                     await interaction.response.edit_message(embed = em, view = view)
                 else:
@@ -2355,6 +2973,7 @@ async def get_help(ctx):
             view.add_item(button1)
             view.add_item(button2)
             view.add_item(button3)
+            view.add_item(button4)
             em = discord.Embed(title = f"Check the chance of these commands:", color = discord.Color.red())
             await interaction.response.edit_message(embed = em, view = view)
         else:
@@ -2381,6 +3000,7 @@ async def get_help(ctx):
     em = discord.Embed(title = f"Get your help:", color = discord.Color.red())
     em.add_field(name= "Preflix", value="!")
     await ctx.send(embed = em, view = view)
+    await client.tree.sync()
 
 @client.event
 async def on_command_error(ctx, err):
@@ -2394,3 +3014,4 @@ async def on_command_error(ctx, err):
 
 if __name__ == "__main__":
     client.run(token)                                               #bottoken to use
+#authorize: https://discord.com/oauth2/authorize?client_id=1240319216930918511&permissions=8&integration_type=0&scope=bot
