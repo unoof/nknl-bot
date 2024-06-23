@@ -1414,9 +1414,12 @@ async def toss(ctx, bet: int = None):
                 button1 = Button(label= "front", style= discord.ButtonStyle.primary, emoji="<:kr1:1244816845781991527>")
                 button2 = Button(label= "back", style= discord.ButtonStyle.primary, emoji="<:kr2:1244824676115419199>")
 
+                i = random.randint(1, 2)
+                channel = client.get_channel(1252953581942865980)
+                await channel.send(f"{ctx.author} toss {bet} KR and the coin is: {i}")
+
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 2)
                         if i == 1:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*2} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1432,7 +1435,6 @@ async def toss(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 2)
                         if i == 2:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*2} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1486,9 +1488,12 @@ async def dice(ctx, bet: int = None):
                 button8 = Button(emoji= "<:dice_8:1244829005488717916>", style= discord.ButtonStyle.primary)
                 button9 = Button(emoji= "<:dice_9:1244829007363444767>", style= discord.ButtonStyle.primary)
 
+                i = random.randint(1, 9)
+                channel = client.get_channel(1252953581942865980)
+                await channel.send(f"{ctx.author} dice {bet} KR and the dice is: {i}")
+
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 1:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1504,7 +1509,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 2:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1520,7 +1524,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 3:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1536,7 +1539,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 4:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1552,7 +1554,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 5:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1568,7 +1569,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 6:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1584,7 +1584,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 7:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1600,7 +1599,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 8:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -1616,7 +1614,6 @@ async def dice(ctx, bet: int = None):
 
                 async def button_callback(interaction):
                     if interaction.user == ctx.author:
-                        i = random.randint(1, 9)
                         if i == 9:
                             em = discord.Embed(title = f"Congratulation you guess right: you won {bet*9} KR", color = discord.Color.red())
                             await interaction.response.edit_message(embed = em, view = None)
@@ -2817,6 +2814,7 @@ async def help(ctx):
                     em = discord.Embed(title = f"All main command:", color = discord.Color.red())
                     em.add_field(name= "balance/bal", value="Leave blank to check your self or @user/user_id to get someone else balance", inline= False)
                     em.add_field(name= "inv", value="Leave blank to check your self or @user/user_id to get someone else inv", inline= False)
+                    em.add_field(name= "lb", value="Check top 10 people with most KR", inline= False)
                     em.add_field(name= "work", value="10 mins cooldown", inline= False)
                     em.add_field(name= "beg", value="15 secs cooldown", inline= False)
                     em.add_field(name= "search", value="15 secs cooldown", inline= False)
